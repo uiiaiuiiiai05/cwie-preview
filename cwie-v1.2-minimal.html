@@ -2322,6 +2322,80 @@
       .navbar .nav-links { gap: 20px; }
     }
 
+    #menu-toggle { display: none; }
+    @media (max-width: 640px) {
+      .navbar.has-mobile-menu {
+        position: relative;
+        flex-wrap: nowrap;
+        padding: 4px 8px 4px 12px;
+      }
+      .navbar.has-mobile-menu .brand-group { flex: 0 1 auto; min-width: 0; }
+      .navbar.has-mobile-menu .brand-logo-img { flex-shrink: 0; }
+      .navbar.has-mobile-menu .brand-text { min-width: 0; }
+      .navbar.has-mobile-menu .brand-sub {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .navbar.has-mobile-menu .display-controls { padding-left: 4px; gap: 0; }
+      #menu-toggle { display: inline-flex; }
+      .menu-icon {
+        width: 18px;
+        height: 2px;
+        border-radius: 1px;
+        background: currentColor;
+        box-shadow: 0 -6px currentColor, 0 6px currentColor;
+      }
+      .navbar.has-mobile-menu nav {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        inset-inline: 0;
+        width: auto;
+        max-height: calc(100dvh - 92px);
+        overflow: auto;
+        padding: 6px 12px;
+        border: 1px solid rgba(255,255,255,.22);
+        border-radius: 12px;
+        background: var(--c-blue-deep);
+        box-shadow: 0 10px 28px rgba(20,39,68,.24);
+      }
+      .navbar.has-mobile-menu.is-menu-open nav { display: block; }
+      .navbar.has-mobile-menu .nav-links {
+        display: grid;
+        width: auto;
+        gap: 0;
+        padding: 0;
+      }
+      .navbar.has-mobile-menu .nav-links li + li {
+        border-top: 1px solid rgba(255,255,255,.15);
+      }
+      .navbar.has-mobile-menu .nav-links a {
+        display: flex;
+        padding: 0 8px;
+        border-radius: 8px;
+      }
+      #menu-toggle[aria-expanded="true"],
+      .navbar.has-mobile-menu .nav-links a:focus-visible,
+      .navbar.has-mobile-menu .nav-links a:active {
+        background: rgba(199,44,48,.3);
+      }
+      @media (hover: hover) {
+        .navbar.has-mobile-menu .nav-links a:hover { background: rgba(199,44,48,.3); }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .navbar.has-mobile-menu.is-menu-open nav {
+          animation: mobile-menu-enter 260ms cubic-bezier(.2,.8,.35,1) both;
+        }
+        @keyframes mobile-menu-enter {
+          0% { opacity: 0; transform: translateY(-12px); }
+          75% { opacity: 1; transform: translateY(2px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      }
+      .home-section, #stats, #contact, #steps, #training, #assessment { scroll-margin-top: 90px; }
+    }
+
     /* Opening sequence: graphic lines lead into the existing hero. */
     .site-intro { display: none; }
     @media (prefers-reduced-motion: no-preference) {
@@ -2437,7 +2511,7 @@
         </div>
       </a>
 
-      <nav aria-label="เมนูหลัก">
+      <nav id="main-navigation" aria-label="เมนูหลัก">
         <ul class="nav-links">
           <li><a href="#about">ข้อมูล CWIE</a></li>
           <li><a href="#news">ข่าวประชาสัมพันธ์</a></li>
@@ -2450,6 +2524,9 @@
       <div class="display-controls">
         <button id="theme-toggle" type="button" aria-label="เปลี่ยนเป็นโหมดมืด" aria-pressed="false">☾ <span>โหมดมืด</span></button>
         <button id="language-toggle" type="button" aria-label="Switch to English">EN</button>
+        <button id="menu-toggle" type="button" aria-label="เมนูหลัก" aria-controls="main-navigation" aria-expanded="false">
+          <span class="menu-icon" aria-hidden="true"></span>
+        </button>
       </div>
     </header>
   </div>
@@ -2597,6 +2674,7 @@
       var heroEnglish = 'Cooperative and Work Integrated Education';
       var themeButton = document.getElementById('theme-toggle');
       var languageButton = document.getElementById('language-toggle');
+      var menuButton = document.getElementById('menu-toggle');
       var currentLanguage = 'th';
       var currentTheme = 'light';
       try {
@@ -2621,6 +2699,7 @@
         document.querySelector('.brand-logo-img').alt = currentLanguage === 'en' ? 'University of Phayao emblem' : 'ตรามหาวิทยาลัยพะเยา';
         document.querySelector('.hero-banner-img').alt = currentLanguage === 'en' ? 'Thai university students learning together with a laptop' : 'นักศึกษาไทยกำลังเรียนรู้ร่วมกันด้วยคอมพิวเตอร์';
         document.querySelector('.news-feature img').alt = currentLanguage === 'en' ? 'Partnership activity' : 'ภาพกิจกรรมความร่วมมือ';
+        menuButton.setAttribute('aria-label', currentLanguage === 'en' ? 'Main menu' : 'เมนูหลัก');
         themeButton.setAttribute('aria-pressed', String(currentTheme === 'dark'));
         themeButton.setAttribute('aria-label', currentLanguage === 'en' ? (currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode') : (currentTheme === 'dark' ? 'เปลี่ยนเป็นโหมดสว่าง' : 'เปลี่ยนเป็นโหมดมืด'));
         themeButton.firstChild.nodeValue = currentTheme === 'dark' ? '☀ ' : '☾ ';
@@ -2653,6 +2732,31 @@
       }
       arrangeHeader();
       if (compactHeader.addEventListener) compactHeader.addEventListener('change', arrangeHeader);
+
+      var mobileHeader = window.matchMedia('(max-width: 640px)');
+      header.classList.add('has-mobile-menu');
+
+      function setMenuOpen(open) {
+        header.classList.toggle('is-menu-open', open);
+        menuButton.setAttribute('aria-expanded', String(open));
+      }
+
+      menuButton.addEventListener('click', function () {
+        setMenuOpen(!header.classList.contains('is-menu-open'));
+      });
+      headerNavigation.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setMenuOpen(false);
+      });
+      document.addEventListener('click', function (event) {
+        if (!header.contains(event.target)) setMenuOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && header.classList.contains('is-menu-open')) {
+          setMenuOpen(false);
+          menuButton.focus();
+        }
+      });
+      mobileHeader.addEventListener('change', function () { setMenuOpen(false); });
 
       var navbar = document.querySelector('.navbar-outer');
       function updateNavbar() {
