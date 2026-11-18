@@ -17,7 +17,7 @@
   <!-- Font Preconnect & Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Lato:wght@900&display=swap" rel="stylesheet">
 
   <style>
     /* Color and typography */
@@ -226,7 +226,7 @@
     .hero-wordmark {
       display: block;
       color: var(--c-blue-primary);
-      font: 800 clamp(5rem, 14vw, 12rem)/.85 'Geist', 'Inter', sans-serif;
+      font: 900 clamp(5rem, 14vw, 12rem)/.85 'Lato', 'Geist', sans-serif;
       letter-spacing: -.085em;
       margin-left: -.055em;
     }
@@ -263,7 +263,6 @@
       object-fit: cover;
     }
 
-    .hero-banner-img { filter: blur(2px); }
     @media (prefers-reduced-motion: no-preference) {
       .hero-banner-img {
         translate: 0 var(--hero-scroll-offset, 0px);
@@ -1135,7 +1134,6 @@
     @media (prefers-reduced-motion: no-preference) {
       .hero-wordmark { animation: title-arrive 1s var(--ease-fluid) both; }
       .hero-name, .hero-copy p { animation: enter 800ms 250ms var(--ease-fluid) both; }
-      .hero-photo { animation: photo-reveal 1.2s var(--ease-fluid) both; }
       .hero-banner-img { animation: settle 1.4s var(--ease-fluid) both; }
       .hero-banner-container figcaption { animation: enter 700ms 500ms var(--ease-fluid) both; }
 
@@ -1159,10 +1157,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes photo-reveal {
-      from { clip-path: inset(0 0 100% 0); }
-      to { clip-path: inset(0); }
-    }
 
     @keyframes enter {
       from { opacity: 0; transform: translateY(18px); }
@@ -1501,8 +1495,8 @@
     .content-tag { color: #6e490b; font-size: 13px; font-weight: 600; }
     .stats-editorial-strip { margin: 0; }
     .stats-heading { color: #FFF9F0; }
-    .stats-layout { grid-template-columns: repeat(3, 1fr); }
-    .calendar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .stats-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .calendar-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 24px; }
     .calendar-panel { background: #FFF9F0; border: 1px solid var(--c-border); border-radius: 12px; padding: 28px; }
     .calendar-panel h3 { color: var(--c-text-title); font-size: 22px; margin-bottom: 12px; }
     .event-row { display: flex; align-items: center; gap: 20px; padding: 20px 0; border-top: 1px solid var(--c-border); }
@@ -1519,11 +1513,9 @@
     .contact-layout .sample-note { margin-top: 12px; }
     .hero-photo::after { background: rgba(31, 14, 49, .55); }
     @media (prefers-reduced-motion: no-preference) {
-      .hero-photo { animation: hero-open 0.55s cubic-bezier(.22, 1, .36, 1) both; }
       .hero-banner-img { animation: hero-zoom 14s ease-out both; }
       .hero-photo::after { animation: hero-shade 0.55s ease-out both; }
     }
-    @keyframes hero-open { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
     @keyframes hero-zoom { from { transform: scale(1.16); } to { transform: scale(1.03); } }
     @keyframes hero-shade { from { opacity: .2; } to { opacity: 1; } }
     @media (max-width: 980px) {
@@ -1656,13 +1648,16 @@
     .audience-section { padding-top: 32px; padding-bottom: 8px; scroll-margin-top: 140px; }
     .audience-heading { font-size: 19px; color: var(--c-text-title); margin-bottom: 16px; }
     .audience-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-    .audience-card {
-      display: grid; grid-template-columns: 1fr auto; gap: 2px 12px;
-      align-items: center; min-height: 100px; padding: 18px 20px;
-      background: var(--c-card); border: 1px solid var(--c-border);
+    .audience-card-frame {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
       border-radius: 10px;
       box-shadow: var(--surface-shadow);
-      transition: transform 250ms var(--motion-ease), border-color 250ms ease, box-shadow 250ms ease;
+    }
+    .audience-card {
+      display: grid; grid-template-columns: 1fr auto; gap: 2px 12px;
+      align-items: center; min-height: 98px; padding: 18px 20px;
+      border-radius: inherit;
     }
     .audience-card strong {
       display: flex; align-items: center; gap: 10px;
@@ -1691,10 +1686,6 @@
     .document-grid .document-status { margin-top: 16px; font-weight: 600; }
     #steps, #training, #assessment { scroll-margin-top: 150px; }
     @media (hover: hover) {
-      .audience-card:hover {
-        transform: translateY(-4px); border-color: var(--c-blue-border);
-        background: var(--c-blue-tint);
-      }
       .audience-card:hover strong::after { transform: scaleX(1); }
       .audience-card:hover .audience-arrow, .journey-grid a:hover span { transform: translateX(4px); }
     }
@@ -1706,7 +1697,6 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .audience-card, .audience-card strong::after, .audience-arrow, .journey-grid a span { transition: none; }
-      .audience-card:hover { transform: none; }
     }
 
 
@@ -1722,7 +1712,8 @@
       font-size: clamp(4.5rem, 10vw, 8rem);
       line-height: .9;
       letter-spacing: -.07em;
-      text-shadow: 5px 5px 0 rgba(141,56,201,.8);
+      letter-spacing: 0;
+      text-shadow: 3px 3px 0 rgba(141,56,201,.65);
     }
     .hero-name {
       max-width: 24ch; font-size: clamp(1.3rem, 2.5vw, 2.3rem);
@@ -1799,6 +1790,7 @@
     }
     @media (max-width: 640px) {
       .hero-photo { height: 480px; }
+      .hero-banner-img { object-position: 74% center; }
       .hero-wordmark { font-size: clamp(4rem, 17vw, 6rem); }
       .hero-name { font-size: 1.25rem; margin-top: 16px; }
       #about, #calendar { padding: 56px 20px; }
@@ -1815,7 +1807,6 @@
 
     /* Entrance and scroll motion */
     @media (prefers-reduced-motion: no-preference) {
-      .hero-photo { animation: hero-stage 1.05s cubic-bezier(.22,1,.36,1) both; }
       .hero-banner-img { animation: hero-camera 7s cubic-bezier(.22,1,.36,1) both; }
       .hero-wordmark > span > span {
         animation-name: hero-letter;
@@ -1837,10 +1828,6 @@
       }
       .news-feature.reveal-in { animation-name: image-reveal; }
       .stat-block.reveal-in { animation-name: stat-reveal; }
-    }
-    @keyframes hero-stage {
-      from { clip-path: inset(0 50% 0 50%); }
-      to { clip-path: inset(0); }
     }
     @keyframes hero-camera {
       from { transform: scale(1.18); }
@@ -2007,9 +1994,14 @@
     .journey-grid li,
     .journey-grid li:nth-child(n) {
       position: relative;
+      background: transparent;
       border: 1px solid transparent;
       border-radius: 16px;
-      transition: background-color 300ms var(--motion-ease), border-color 300ms var(--motion-ease);
+      box-shadow: none;
+    }
+    .journey-grid li, .audience-card {
+      transition: background-color 300ms var(--motion-ease),
+        transform 250ms var(--motion-ease), box-shadow 250ms ease;
     }
     .journey-number {
       display: inline-flex;
@@ -2040,12 +2032,26 @@
       transition: text-decoration-color 250ms ease;
     }
     @media (hover: hover) {
-      .journey-grid li:hover { background: rgba(141,56,201,.045); border-color: var(--c-blue-border); }
+      .audience-card:hover, .journey-grid li:hover {
+        background: color-mix(in srgb, var(--c-card), var(--c-blue-primary) 5%);
+      }
+      .audience-card-frame:hover {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+      .journey-grid li:hover, .audience-card:hover {
+        z-index: 1;
+        box-shadow: 0 8px 20px rgba(49,22,75,.15);
+      }
       .journey-grid li:hover .journey-number::after { width: 42px; background: var(--c-blue-primary); }
       .journey-grid a:hover { text-decoration-color: currentColor; }
     }
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .journey-grid li:hover, .audience-card:hover { transform: translateY(-5px); }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .journey-grid li, .journey-number::after, .journey-grid a { transition: none; }
+      .journey-grid li, .audience-card, .journey-number::after, .journey-grid a { transition: none; }
     }
     @media (max-width: 640px) {
       .journey-grid h3 { margin-top: 14px; }
@@ -2200,67 +2206,36 @@
     #stats .sample-note { color: var(--c-text-muted); }
 
     /* Statistics cards */
+    #stats .stats-layout {
+      gap: 0;
+      background: #F5EDF9;
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      box-shadow: var(--surface-shadow);
+      --stats-divider: rgba(196, 153, 108, .55);
+    }
     #stats .stat-block {
-      background: rgba(255,249,240,.78);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 4px 12px rgba(49,22,75,.06), 0 14px 30px rgba(141,56,201,.07);
-      transition: box-shadow 250ms ease;
+      border: 0;
+      padding: clamp(22px, 3vw, 42px);
     }
-    #stats .stat-number-wrap { transition: transform 300ms var(--motion-ease); }
-    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      #stats .stat-block:hover { box-shadow: 0 8px 20px rgba(49,22,75,.1), 0 18px 36px rgba(141,56,201,.12); }
-      #stats .stat-block:hover .stat-number-wrap { transform: translateY(-4px); }
+    #stats .stat-block + .stat-block { border-inline-start: 1px solid var(--stats-divider); }
+    #stats .stat-number-wrap {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      column-gap: .24em;
     }
-    @media (prefers-reduced-motion: reduce) {
-      #stats .stat-block, #stats .stat-number-wrap { transition: none; }
-    }
-
-
-    /* Statistics line motif */
-    #stats .stat-block {
-      position: relative;
-      isolation: isolate;
-      background: transparent;
-      box-shadow: none;
-      border-radius: 0;
-      padding: 20px 20px 20px 24px;
-    }
-    #stats .stat-orbit {
-      position: absolute;
-      z-index: -1;
-      width: 150px;
-      height: 150px;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%) rotate(-90deg);
-      overflow: visible;
-      pointer-events: none;
-    }
-    #stats .stat-orbit circle {
-      fill: none;
-      stroke: rgba(141,56,201,.18);
-      stroke-width: 1.5;
-      stroke-dasharray: 100;
-      stroke-dashoffset: 0;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      #stats .stat-block.reveal-in .stat-orbit circle {
-        animation: draw-stat-orbit 1.1s cubic-bezier(.22,1,.36,1) both;
-        animation-delay: var(--reveal-delay, 0ms);
-      }
-      @keyframes draw-stat-orbit {
-        from { stroke-dashoffset: 100; }
-        to { stroke-dashoffset: 0; }
-      }
-    }
-    @media (hover: hover) {
-      #stats .stat-block:hover { box-shadow: none; }
+    .stat-unit {
+      color: var(--c-text-muted);
+      font: 600 1rem/1.4 var(--font-base);
+      letter-spacing: normal;
     }
     @media (max-width: 640px) {
-      #stats .stat-orbit { right: 20px; width: 120px; height: 120px; }
+      #stats .stat-block + .stat-block {
+        border-inline-start: 0;
+        border-block-start: 1px solid var(--stats-divider);
+      }
     }
-
 
     /* Display preferences */
     .display-controls { display: flex; align-items: center; gap: 8px; margin-left: auto; }
@@ -2295,7 +2270,6 @@
     html[data-theme="dark"] #calendar { background: #38234f; }
     html[data-theme="dark"] #stats { background-color: #38234f; }
     html[data-theme="dark"] #stats .stat-number-wrap { color: #d8bbff; }
-    html[data-theme="dark"] #stats .stat-orbit circle { stroke: rgba(216,187,255,.35); }
     html[data-theme="dark"] .journey-grid, html[data-theme="dark"] .journey-grid li,
     html[data-theme="dark"] .news-feature, html[data-theme="dark"] .news-list article,
     html[data-theme="dark"] .calendar-panel { background-color: var(--c-card); }
@@ -2482,7 +2456,6 @@
       .intro-mark span:nth-child(2) { animation-delay: .07s; }
       .intro-mark span:nth-child(3) { animation-delay: .14s; }
       .intro-mark span:nth-child(4) { animation-delay: .21s; }
-      .show-site-intro .hero-photo { animation-delay: 1.7s; }
       .show-site-intro .hero-banner-img { animation-delay: 1.7s; }
       .show-site-intro .hero-wordmark > span > span:nth-child(1) { animation-delay: 1.9s; }
       .show-site-intro .hero-wordmark > span > span:nth-child(2) { animation-delay: 2s; }
@@ -2563,15 +2536,13 @@
       background-color: #2A2334;
       background-image: radial-gradient(rgba(216,187,255,.13) 1px, transparent 1px);
     }
-    html[data-theme="dark"] #stats .stat-block {
+    html[data-theme="dark"] #stats .stats-layout {
       background: var(--c-card);
-      border: 1px solid var(--c-border);
-      border-left: 3px solid var(--c-dark-gold);
-      box-shadow: var(--surface-shadow);
+      --stats-divider: rgba(196, 153, 108, .44);
     }
     html[data-theme="dark"] #calendar { background: #2A2334; }
-    html[data-theme="dark"] .journey-grid { background: transparent; }
-    html[data-theme="dark"] .journey-grid li, html[data-theme="dark"] .audience-card,
+    html[data-theme="dark"] .journey-grid { background: var(--c-card); }
+    html[data-theme="dark"] .journey-grid li { background: transparent; border-color: transparent; }
     html[data-theme="dark"] .news-feature, html[data-theme="dark"] .news-list article,
     html[data-theme="dark"] .calendar-panel, html[data-theme="dark"] .document-grid article {
       background-color: var(--c-card); border-color: var(--c-border);
@@ -2596,6 +2567,36 @@
     html[data-theme="dark"] .document-grid span { background: #433428; color: var(--c-dark-gold); }
     html[data-theme="dark"] .site-footer { background: #19151F; }
     html[data-theme="dark"] .event-row summary:focus-visible { outline-color: var(--c-dark-lavender); }
+    @media (hover: hover) {
+      #news .news-feature:hover,
+      #news .news-list article:hover { background-color: transparent; }
+    }
+    .hero-wordmark { position: relative; }
+    .hero-flower-motif {
+      position: absolute;
+      z-index: 2;
+      bottom: calc(100% + 14px);
+      left: 0;
+      width: 86px;
+      height: 26px;
+      color: #D8AE80;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 31%, transparent 5px, currentColor 5.2px 6.2px, transparent 6.4px),
+        radial-gradient(circle at 50% 69%, transparent 5px, currentColor 5.2px 6.2px, transparent 6.4px),
+        radial-gradient(circle at calc(50% - 5px) 50%, transparent 5px, currentColor 5.2px 6.2px, transparent 6.4px),
+        radial-gradient(circle at calc(50% + 5px) 50%, transparent 5px, currentColor 5.2px 6.2px, transparent 6.4px),
+        linear-gradient(currentColor, currentColor) left center / 25px 1px no-repeat,
+        linear-gradient(currentColor, currentColor) right center / 25px 1px no-repeat;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-flower-motif { animation: hero-flower-reveal .75s ease-out .3s both; }
+      .show-site-intro .hero-flower-motif { animation-delay: 2.15s; }
+      @keyframes hero-flower-reveal {
+        from { clip-path: inset(0 50%); opacity: 0; }
+        to { clip-path: inset(0); opacity: 1; }
+      }
+    }
   </style>
 </head>
 <body>
@@ -2640,13 +2641,13 @@
       <div class="hero-intro">
         <figure class="hero-banner-container">
           <div class="hero-photo">
-            <img src="cwie-thai-students-example.jpg" alt="นักศึกษาไทยกำลังเรียนรู้ร่วมกันด้วยคอมพิวเตอร์" class="hero-banner-img" fetchpriority="high" />
+            <img src="cwie-up-entrance-banner.jpg" alt="ป้ายทางเข้ามหาวิทยาลัยพะเยายามเย็น" class="hero-banner-img" fetchpriority="high" />
           </div>
-          <figcaption>ภาพตัวอย่างนักศึกษาเรียนรู้ร่วมกัน</figcaption>
+          <figcaption>ทางเข้ามหาวิทยาลัยพะเยา</figcaption>
         </figure>
         <div class="hero-copy">
           <h1 id="hero-title">
-            <span class="hero-wordmark" aria-label="CWIE"><span aria-hidden="true"><span>C</span><span>W</span><span>I</span><span>E</span></span></span>
+            <span class="hero-wordmark" aria-label="CWIE"><span aria-hidden="true"><span>C</span><span>W</span><span>I</span><span>E</span></span><span class="hero-flower-motif" aria-hidden="true"></span></span>
             <span class="hero-name">สหกิจศึกษาและการศึกษาเชิงบูรณาการกับการทำงาน</span>
           </h1>
           <p>มหาวิทยาลัยพะเยา</p>
@@ -2673,40 +2674,41 @@
         <li><span class="journey-number">04</span><h3>ประเมินตนเอง</h3><p>ทบทวนความพร้อมก่อนออกปฏิบัติงานสหกิจศึกษา</p><a href="https://plo.up.ac.th/main/#/dashboard">ทำแบบประเมิน <span aria-hidden="true">&#8599;</span></a></li>
       </ol>
       <div class="audience-section">
-        <a class="audience-card" href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">
-          <strong>ระบบกิจกรรมนิสิต</strong>
-          <span>ดูชั่วโมงกิจกรรม ตรวจสอบโครงการที่เข้าร่วม และดูประวัติ</span>
-          <span class="audience-arrow" aria-hidden="true">&#8599;</span>
-        </a>
+        <div class="audience-card-frame">
+          <a class="audience-card" href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">
+            <strong>ระบบกิจกรรมนิสิต</strong>
+            <span>ดูชั่วโมงกิจกรรม ตรวจสอบโครงการที่เข้าร่วม และดูประวัติ</span>
+            <span class="audience-arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <section id="news" class="container home-section">
-      <div class="section-head"><p class="section-kicker">ข่าวสาร</p><h2 class="section-heading">ข่าวประชาสัมพันธ์</h2><p class="sample-note">เนื้อหาตัวอย่างสำหรับแสดงรูปแบบหน้าเว็บ</p></div>
+      <div class="section-head"><p class="section-kicker">ข่าวสาร</p><h2 class="section-heading">ข่าวประชาสัมพันธ์</h2><p class="sample-note">ข่าวตัวอย่าง</p></div>
       <div class="news-layout">
         <article class="news-feature">
           <img src="../assets/up-cwie-mou.webp" alt="ภาพกิจกรรมความร่วมมือ" loading="lazy">
-          <div><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">รอวันที่ประกาศ</span><h3>กิจกรรมความร่วมมือด้านสหกิจศึกษา</h3><p>พื้นที่สำหรับข่าวสารและกิจกรรม CWIE ของมหาวิทยาลัย</p></div>
+          <div><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">ยังไม่ระบุวันที่</span><h3>กิจกรรมความร่วมมือด้านสหกิจศึกษา</h3><p>ข่าวความร่วมมือระหว่างมหาวิทยาลัยกับสถานประกอบการ</p></div>
         </article>
         <div class="news-list">
-          <article><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">รอวันที่ประกาศ</span><h3>การเตรียมความพร้อมก่อนออกปฏิบัติงาน</h3><p>รายละเอียดและกำหนดการจะแจ้งให้ทราบภายหลัง</p></article>
-          <article><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">รอวันที่ประกาศ</span><h3>ประชาสัมพันธ์กิจกรรมสำหรับนิสิต CWIE</h3><p>ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย</p></article>
+          <article><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">ยังไม่ระบุวันที่</span><h3>การเตรียมความพร้อมก่อนออกปฏิบัติงาน</h3><p>รอประกาศกำหนดการและรายละเอียด</p></article>
+          <article><span class="content-tag">ตัวอย่างข่าว</span> <span class="news-meta">ยังไม่ระบุวันที่</span><h3>กิจกรรมสำหรับนิสิต CWIE</h3><p>ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย</p></article>
         </div>
       </div>
     </section>
 
     <section id="stats" class="stats-editorial-strip">
-      <div class="container"><div class="section-head"><h2 class="section-heading stats-heading">CWIE ในตัวเลข</h2><p class="sample-note">ข้อมูลสมมุติ ปีการศึกษา 2568 · แหล่งข้อมูลสมมุติ: ศูนย์สหกิจศึกษา</p></div>
+      <div class="container"><div class="section-head"><h2 class="section-heading stats-heading">CWIE ในตัวเลข</h2><p class="sample-note">ตัวเลขสมมุติ</p></div>
         <div class="stats-layout" id="stats-section">
-          <div class="stat-block"><svg class="stat-orbit" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><circle cx="80" cy="80" r="70" pathLength="100"></circle></svg><div class="stat-number-wrap"><span class="counter" data-target="540" data-decimals="0">540</span>+</div><div class="stat-title">สถานประกอบการ</div></div>
-          <div class="stat-block"><svg class="stat-orbit" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><circle cx="80" cy="80" r="70" pathLength="100"></circle></svg><div class="stat-number-wrap"><span class="counter" data-target="1600" data-decimals="0" data-format="comma">1,600</span>+</div><div class="stat-title">นิสิตเข้าร่วมต่อปี</div></div>
-          <div class="stat-block"><svg class="stat-orbit" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><circle cx="80" cy="80" r="70" pathLength="100"></circle></svg><div class="stat-number-wrap"><span class="counter" data-target="96.4" data-decimals="1">96.4</span>%</div><div class="stat-title">อัตราการได้งานทำ</div></div>
+          <div class="stat-block"><div class="stat-number-wrap"><span class="counter" data-target="1600" data-decimals="0" data-format="comma">1,600</span> <span class="stat-unit">คน</span></div><div class="stat-title">นิสิต CWIE ปัจจุบัน</div></div>
+          <div class="stat-block"><div class="stat-number-wrap"><span class="counter" data-target="540" data-decimals="0" data-format="comma">540</span> <span class="stat-unit">แห่ง</span></div><div class="stat-title">สถานประกอบการ</div></div>
         </div>
       </div>
     </section>
 
     <section id="calendar" class="container home-section">
-      <div class="section-head"><p class="section-kicker">กำหนดการ</p><h2 class="section-heading">ปฏิทินกิจกรรม</h2><p class="sample-note">รายการและวันที่ต่อไปนี้เป็นตัวอย่าง</p></div>
+      <div class="section-head"><p class="section-kicker">กำหนดการ</p><h2 class="section-heading">ปฏิทินกิจกรรม</h2><p class="sample-note">กำหนดการตัวอย่าง</p></div>
       <div class="calendar-grid">
         <article id="training" class="calendar-panel"><h3>ปฏิทินอบรม</h3>
           <details class="event-row">
@@ -2732,7 +2734,7 @@
     </section>
 
     <section id="documents" class="container home-section">
-      <div class="section-head"><p class="section-kicker">ข้อมูลและเอกสาร</p><h2 class="section-heading">ระเบียบ ประกาศ และข้อบังคับ</h2><p class="sample-note">รายการตัวอย่าง รอเอกสารฉบับจริง</p></div>
+      <div class="section-head"><p class="section-kicker">ข้อมูลและเอกสาร</p><h2 class="section-heading">ระเบียบ ประกาศ และข้อบังคับ</h2><p class="sample-note">รายการตัวอย่าง ยังไม่มีไฟล์ให้ดาวน์โหลด</p></div>
       <div class="document-grid">
         <article><span>01</span><h3>ระเบียบ</h3><p>ระเบียบที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา</p><p class="document-status">รอไฟล์เอกสาร</p></article>
         <article><span>02</span><h3>ประกาศ</h3><p>ประกาศและกำหนดการจากมหาวิทยาลัย</p><p class="document-status">รอไฟล์เอกสาร</p></article>
@@ -2743,8 +2745,8 @@
 
   <footer id="contact" class="site-footer">
     <div class="container contact-layout">
-      <div><p class="section-kicker">ติดต่อเรา</p><h2>ศูนย์สหกิจศึกษา<br>มหาวิทยาลัยพะเยา</h2></div>
-      <div class="contact-details"><p class="contact-address">ที่อยู่: มหาวิทยาลัยพะเยา จังหวัดพะเยา</p><p>โทรศัพท์: 000-000-0000</p><p>อีเมล: cwie@example.com</p><p class="contact-hours">เวลาทำการ: จันทร์–ศุกร์ 08.30–16.30 น.</p><p class="sample-note">ข้อมูลติดต่อสมมุติสำหรับตัวอย่างหน้าเว็บ</p></div>
+      <div><p class="section-kicker">ติดต่อเรา</p><h2>สหกิจศึกษา<br>มหาวิทยาลัยพะเยา</h2></div>
+      <div class="contact-details"><p class="contact-address">ที่อยู่: มหาวิทยาลัยพะเยา จังหวัดพะเยา</p><p>โทรศัพท์: 1023</p><p>อีเมล: cwie@example.com</p><p class="contact-hours">เวลาทำการ: จันทร์–ศุกร์ 08.30–16.30 น.</p><p class="sample-note">ข้อมูลติดต่อในหน้านี้ใช้สำหรับแสดงตัวอย่าง</p></div>
     </div>
   </footer>
 
@@ -2771,7 +2773,7 @@
       }
 
 
-      var translations = {"ทำแบบประเมิน": "Take the assessment", "ระบบกิจกรรมนิสิต": "Student Activity Portal", "ดูชั่วโมงกิจกรรม ตรวจสอบโครงการที่เข้าร่วม และดูประวัติ": "View activity hours, check joined projects, and view your history", "ข้ามไปยังเนื้อหาหลัก": "Skip to main content", "มหาวิทยาลัยพะเยา": "University of Phayao", "ข้อมูล CWIE": "About CWIE", "ข่าวประชาสัมพันธ์": "News", "สถิติ": "Statistics", "ปฏิทิน": "Calendar", "ระเบียบและประกาศ": "Regulations", "ติดต่อเรา": "Contact", "ภาพตัวอย่างนักศึกษาเรียนรู้ร่วมกัน": "Example image of university students learning together", "CWIE มหาวิทยาลัยพะเยา": "CWIE at the University of Phayao", "เรียนรู้จากการทำงานจริง": "Learn through work experience", "CWIE คือการจัดการศึกษาที่เชื่อมการเรียนในมหาวิทยาลัยกับประสบการณ์ทำงาน ช่วยให้นิสิตได้เรียนรู้และพัฒนาทักษะร่วมกับสถานประกอบการ": "CWIE connects university learning with workplace experience, helping students develop skills alongside partner organizations.", "ดูกำหนดการ": "View schedule", "สำหรับนิสิต": "For students", "4 ขั้นตอนการเข้าร่วม": "Four steps to participate", "ขั้นตอนตัวอย่าง รอรายละเอียดจากมหาวิทยาลัย": "Example steps. University details are pending.", "ทำความรู้จัก CWIE": "Explore CWIE", "อ่านภาพรวมและเตรียมความพร้อม": "Read the overview and prepare", "ดูข้อมูล CWIE": "About CWIE", "ตรวจสอบเอกสาร": "Check documents", "ศึกษาระเบียบและประกาศที่เกี่ยวข้อง": "Review relevant regulations and notices", "ดูรายการเอกสาร": "View documents", "เข้าร่วมอบรม": "Attend training", "ติดตามวันอบรมและเตรียมตัวเข้าร่วม": "Check training dates and prepare to attend", "ดูปฏิทินอบรม": "Training calendar", "ประเมินตนเอง": "Self-assessment", "ทบทวนความพร้อมก่อนออกปฏิบัติงานสหกิจศึกษา": "Review your readiness before starting your CWIE placement", "ดูปฏิทินประเมิน": "Assessment calendar", "ข่าวสาร": "News", "เนื้อหาตัวอย่างสำหรับแสดงรูปแบบหน้าเว็บ": "Example content for this website preview", "ตัวอย่างข่าว": "Example news", "รอวันที่ประกาศ": "Publication date pending", "กิจกรรมความร่วมมือด้านสหกิจศึกษา": "Cooperative education partnership activities", "พื้นที่สำหรับข่าวสารและกิจกรรม CWIE ของมหาวิทยาลัย": "University CWIE news and activities", "การเตรียมความพร้อมก่อนออกปฏิบัติงาน": "Preparing for a work placement", "รายละเอียดและกำหนดการจะแจ้งให้ทราบภายหลัง": "Details and dates will be announced later", "ประชาสัมพันธ์กิจกรรมสำหรับนิสิต CWIE": "CWIE student activities", "ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย": "Follow university activities and announcements", "CWIE ในตัวเลข": "CWIE in numbers", "ข้อมูลสมมุติ ปีการศึกษา 2568 · แหล่งข้อมูลสมมุติ: ศูนย์สหกิจศึกษา": "Example data for academic year 2025 · Example source: Cooperative Education Center", "สถานประกอบการ": "Partner organizations", "นิสิตเข้าร่วมต่อปี": "Students participating per year", "อัตราการได้งานทำ": "Employment rate", "กำหนดการ": "Schedule", "ปฏิทินกิจกรรม": "Activity calendar", "รายการและวันที่ต่อไปนี้เป็นตัวอย่าง": "The following activities and dates are examples", "ปฏิทินอบรม": "Training calendar", "ปฏิทินประเมิน": "Assessment calendar", "ม.ค. 70": "Jan 2027", "ก.พ. 70": "Feb 2027", "อบรมเตรียมความพร้อมสหกิจศึกษา": "Cooperative education preparation", "ตัวอย่างกิจกรรม · รอประกาศสถานที่": "Example activity · Venue to be announced", "ข้อมูลสมมุติ · เวลา 09.00–12.00 น. · ห้องประชุมตัวอย่าง": "Example data · 09:00–12:00 · Example meeting room", "แนะนำการเตรียมตัวและแนวทางปฏิบัติก่อนเข้าร่วมสหกิจศึกษา": "An introduction to preparation and guidelines for cooperative education.", "ทักษะการทำงานและการสื่อสาร": "Workplace and communication skills", "ข้อมูลสมมุติ · เวลา 13.00–16.00 น. · ห้องอบรมตัวอย่าง": "Example data · 13:00–16:00 · Example training room", "ฝึกการสื่อสารและการทำงานร่วมกับผู้อื่นในสถานประกอบการ": "Practice communication and collaboration in the workplace.", "ประเมินความพร้อมก่อนปฏิบัติงาน": "Pre-placement readiness assessment", "ตัวอย่างกำหนดการ · รอรายละเอียด": "Example schedule · Details pending", "ข้อมูลสมมุติ · เวลา 09.00–12.00 น. · รูปแบบออนไลน์ตัวอย่าง": "Example data · 09:00–12:00 · Example online session", "ทบทวนความพร้อมก่อนเริ่มปฏิบัติงานสหกิจศึกษา": "Review readiness before starting a cooperative education placement.", "ประเมินผลการปฏิบัติงาน": "Work placement assessment", "ข้อมูลสมมุติ · เวลา 13.00–16.00 น. · ห้องประชุมตัวอย่าง": "Example data · 13:00–16:00 · Example meeting room", "นำเสนอและประเมินผลการเรียนรู้จากการปฏิบัติงาน": "Present and assess learning from the work placement.", "ข้อมูลและเอกสาร": "Information and documents", "ระเบียบ ประกาศ และข้อบังคับ": "Regulations and notices", "รายการตัวอย่าง รอเอกสารฉบับจริง": "Example items · Documents pending", "ระเบียบ": "Regulations", "ระเบียบที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา": "Regulations for cooperative education", "รอไฟล์เอกสาร": "Document pending", "ประกาศ": "Notices", "ประกาศและกำหนดการจากมหาวิทยาลัย": "University notices and schedules", "ข้อบังคับ": "Rules", "ข้อบังคับที่เกี่ยวข้องกับการจัดการศึกษา CWIE": "Rules related to CWIE education", "ศูนย์สหกิจศึกษา": "Cooperative Education Center", "ที่อยู่: มหาวิทยาลัยพะเยา จังหวัดพะเยา": "Address: University of Phayao, Phayao", "โทรศัพท์: 000-000-0000": "Phone: 000-000-0000", "อีเมล: cwie@example.com": "Email: cwie@example.com", "เวลาทำการ: จันทร์–ศุกร์ 08.30–16.30 น.": "Hours: Monday–Friday, 08:30–16:30", "ข้อมูลติดต่อสมมุติสำหรับตัวอย่างหน้าเว็บ": "Example contact information for this website preview"};
+      var translations = {"คน": "students", "แห่ง": "organizations", "ทำแบบประเมิน": "Take the assessment", "ระบบกิจกรรมนิสิต": "Student Activity Portal", "ดูชั่วโมงกิจกรรม ตรวจสอบโครงการที่เข้าร่วม และดูประวัติ": "View activity hours, check joined projects, and view your history", "ข้ามไปยังเนื้อหาหลัก": "Skip to main content", "มหาวิทยาลัยพะเยา": "University of Phayao", "ข้อมูล CWIE": "About CWIE", "ข่าวประชาสัมพันธ์": "News", "สถิติ": "Statistics", "ปฏิทิน": "Calendar", "ระเบียบและประกาศ": "Regulations", "ติดต่อเรา": "Contact", "ทางเข้ามหาวิทยาลัยพะเยา": "University of Phayao entrance", "CWIE มหาวิทยาลัยพะเยา": "CWIE at the University of Phayao", "เรียนรู้จากการทำงานจริง": "Learn through work experience", "CWIE คือการจัดการศึกษาที่เชื่อมการเรียนในมหาวิทยาลัยกับประสบการณ์ทำงาน ช่วยให้นิสิตได้เรียนรู้และพัฒนาทักษะร่วมกับสถานประกอบการ": "CWIE connects university learning with workplace experience, helping students develop skills alongside partner organizations.", "ดูกำหนดการ": "View schedule", "สำหรับนิสิต": "For students", "4 ขั้นตอนการเข้าร่วม": "Four steps to participate", "ขั้นตอนตัวอย่าง รอรายละเอียดจากมหาวิทยาลัย": "Example steps. University details are pending.", "ทำความรู้จัก CWIE": "Explore CWIE", "อ่านภาพรวมและเตรียมความพร้อม": "Read the overview and prepare", "ดูข้อมูล CWIE": "About CWIE", "ตรวจสอบเอกสาร": "Check documents", "ศึกษาระเบียบและประกาศที่เกี่ยวข้อง": "Review relevant regulations and notices", "ดูรายการเอกสาร": "View documents", "เข้าร่วมอบรม": "Attend training", "ติดตามวันอบรมและเตรียมตัวเข้าร่วม": "Check training dates and prepare to attend", "ดูปฏิทินอบรม": "Training calendar", "ประเมินตนเอง": "Self-assessment", "ทบทวนความพร้อมก่อนออกปฏิบัติงานสหกิจศึกษา": "Review your readiness before starting your CWIE placement", "ดูปฏิทินประเมิน": "Assessment calendar", "ข่าวสาร": "News", "ตัวอย่างข่าว": "Example news", "กิจกรรมความร่วมมือด้านสหกิจศึกษา": "Cooperative education partnership activities", "การเตรียมความพร้อมก่อนออกปฏิบัติงาน": "Preparing for a work placement", "ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย": "Follow university activities and announcements", "CWIE ในตัวเลข": "CWIE in numbers", "สถานประกอบการ": "Partner organizations", "นิสิต CWIE ปัจจุบัน": "Current CWIE students", "กำหนดการ": "Schedule", "ปฏิทินกิจกรรม": "Activity calendar", "ปฏิทินอบรม": "Training calendar", "ปฏิทินประเมิน": "Assessment calendar", "ม.ค. 70": "Jan 2027", "ก.พ. 70": "Feb 2027", "อบรมเตรียมความพร้อมสหกิจศึกษา": "Cooperative education preparation", "ตัวอย่างกิจกรรม · รอประกาศสถานที่": "Example activity · Venue to be announced", "ข้อมูลสมมุติ · เวลา 09.00–12.00 น. · ห้องประชุมตัวอย่าง": "Example data · 09:00–12:00 · Example meeting room", "แนะนำการเตรียมตัวและแนวทางปฏิบัติก่อนเข้าร่วมสหกิจศึกษา": "An introduction to preparation and guidelines for cooperative education.", "ทักษะการทำงานและการสื่อสาร": "Workplace and communication skills", "ข้อมูลสมมุติ · เวลา 13.00–16.00 น. · ห้องอบรมตัวอย่าง": "Example data · 13:00–16:00 · Example training room", "ฝึกการสื่อสารและการทำงานร่วมกับผู้อื่นในสถานประกอบการ": "Practice communication and collaboration in the workplace.", "ประเมินความพร้อมก่อนปฏิบัติงาน": "Pre-placement readiness assessment", "ตัวอย่างกำหนดการ · รอรายละเอียด": "Example schedule · Details pending", "ข้อมูลสมมุติ · เวลา 09.00–12.00 น. · รูปแบบออนไลน์ตัวอย่าง": "Example data · 09:00–12:00 · Example online session", "ทบทวนความพร้อมก่อนเริ่มปฏิบัติงานสหกิจศึกษา": "Review readiness before starting a cooperative education placement.", "ประเมินผลการปฏิบัติงาน": "Work placement assessment", "ข้อมูลสมมุติ · เวลา 13.00–16.00 น. · ห้องประชุมตัวอย่าง": "Example data · 13:00–16:00 · Example meeting room", "นำเสนอและประเมินผลการเรียนรู้จากการปฏิบัติงาน": "Present and assess learning from the work placement.", "ข้อมูลและเอกสาร": "Information and documents", "ระเบียบ ประกาศ และข้อบังคับ": "Regulations and notices", "ระเบียบ": "Regulations", "ระเบียบที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา": "Regulations for cooperative education", "รอไฟล์เอกสาร": "Document pending", "ประกาศ": "Notices", "ประกาศและกำหนดการจากมหาวิทยาลัย": "University notices and schedules", "ข้อบังคับ": "Rules", "ข้อบังคับที่เกี่ยวข้องกับการจัดการศึกษา CWIE": "Rules related to CWIE education", "สหกิจศึกษา": "Cooperative Education", "ที่อยู่: มหาวิทยาลัยพะเยา จังหวัดพะเยา": "Address: University of Phayao, Phayao", "โทรศัพท์: 1023": "Phone: 1023", "อีเมล: cwie@example.com": "Email: cwie@example.com", "เวลาทำการ: จันทร์–ศุกร์ 08.30–16.30 น.": "Hours: Monday–Friday, 08:30–16:30", "ข่าวตัวอย่าง": "Sample news", "ยังไม่ระบุวันที่": "Date pending", "ข่าวความร่วมมือระหว่างมหาวิทยาลัยกับสถานประกอบการ": "News about university and employer partnerships", "รอประกาศกำหนดการและรายละเอียด": "Schedule and details pending", "กิจกรรมสำหรับนิสิต CWIE": "Activities for CWIE students", "ตัวเลขสมมุติ": "Sample figures", "กำหนดการตัวอย่าง": "Sample schedule", "รายการตัวอย่าง ยังไม่มีไฟล์ให้ดาวน์โหลด": "Sample listings. Files are pending.", "ข้อมูลติดต่อในหน้านี้ใช้สำหรับแสดงตัวอย่าง": "Contact information shown for illustration"};
       var textNodes = [];
       var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       while (walker.nextNode()) {
@@ -2808,7 +2810,7 @@
         document.querySelector('.brand-group').setAttribute('aria-label', currentLanguage === 'en' ? 'CWIE Portal home' : 'หน้าแรก CWIE Portal');
         document.querySelector('.navbar nav').setAttribute('aria-label', currentLanguage === 'en' ? 'Main navigation' : 'เมนูหลัก');
         document.querySelector('.brand-logo-img').alt = currentLanguage === 'en' ? 'University of Phayao emblem' : 'ตรามหาวิทยาลัยพะเยา';
-        document.querySelector('.hero-banner-img').alt = currentLanguage === 'en' ? 'Thai university students learning together with a laptop' : 'นักศึกษาไทยกำลังเรียนรู้ร่วมกันด้วยคอมพิวเตอร์';
+        document.querySelector('.hero-banner-img').alt = currentLanguage === 'en' ? 'University of Phayao entrance sign at sunset' : 'ป้ายทางเข้ามหาวิทยาลัยพะเยายามเย็น';
         document.querySelector('.news-feature img').alt = currentLanguage === 'en' ? 'Partnership activity' : 'ภาพกิจกรรมความร่วมมือ';
         menuButton.setAttribute('aria-label', currentLanguage === 'en' ? 'Main menu' : 'เมนูหลัก');
         themeButton.setAttribute('aria-pressed', String(currentTheme === 'dark'));
