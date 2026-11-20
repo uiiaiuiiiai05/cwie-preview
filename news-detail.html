@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ข่าวประชาสัมพันธ์ | CWIE UP</title>
+<style>
+:root { color-scheme:light; --paper:#fff9f0; --ink:#31164b; --body:#40354a; --line:#ded2e8; }
+:root[data-theme="dark"] { color-scheme:dark; --paper:#201b27; --ink:#fff9f0; --body:#e9e0ee; --line:#62536f; }
+body { margin:0; background:var(--paper); color:var(--body); font:1rem/1.7 "IBM Plex Sans Thai", Tahoma, sans-serif; }
+main { max-width:760px; margin:auto; padding:clamp(24px,6vw,64px) 20px; }
+a,h1 { color:var(--ink); }
+a { display:inline-block; padding-block:8px; text-underline-offset:4px; }
+a:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+header { margin:28px 0 20px; border-bottom:1px solid var(--line); }
+.date { margin:0; }
+h1 { margin:4px 0 16px; font-size:clamp(1.65rem,5vw,2.7rem); line-height:1.3; }
+img { display:block; width:100%; height:auto; border-radius:10px; }
+.copy { margin-top:20px; }
+</style>
+</head>
+<body>
+<main>
+<a href="cwie-v1.3-minimal.html#news">กลับไปหน้าข่าว</a>
+<article id="news-1" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>กิจกรรมความร่วมมือด้านสหกิจศึกษา</h1></header><img src="../assets/up-cwie-mou.webp" alt="ภาพกิจกรรมความร่วมมือ" loading="lazy" width="640" height="400"><div class="copy"><p>ข่าวความร่วมมือระหว่างมหาวิทยาลัยกับสถานประกอบการ</p></div></article>
+<article id="news-2" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>การเตรียมความพร้อมก่อนออกปฏิบัติงาน</h1></header><img src="../assets/up-cwie-workshop.webp" alt="" loading="lazy" width="640" height="400"><div class="copy"><p>รอประกาศกำหนดการและรายละเอียด</p></div></article>
+<article id="news-3" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>กิจกรรมสำหรับนิสิต CWIE</h1></header><img src="../assets/up-cwie-cta.webp" alt="" loading="lazy" width="640" height="400"><div class="copy"><p>ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย</p></div></article>
+<article id="news-4" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>ทักษะการทำงานและการสื่อสาร</h1></header><img src="../assets/up-cwie-workshop.webp" alt="" loading="lazy" width="640" height="400"><div class="copy"><p>ฝึกทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นก่อนออกสหกิจ</p></div></article>
+<article id="news-5" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>การเตรียมเอกสารก่อนออกสหกิจ</h1></header><img src="../assets/up-cwie-cta.webp" alt="" loading="lazy" width="640" height="400"><div class="copy"><p>รายการเอกสารที่นิสิตควรตรวจสอบก่อนเริ่มปฏิบัติงาน</p></div></article>
+<article id="news-6" hidden><header><p class="date">ยังไม่ระบุวันที่</p><h1>การแบ่งปันประสบการณ์สหกิจศึกษา</h1></header><img src="../assets/up-cwie-mou.webp" alt="" loading="lazy" width="640" height="400"><div class="copy"><p>นิสิตรุ่นพี่เล่าประสบการณ์จากการปฏิบัติงานจริง</p></div></article>
+</main>
+<script>
+const translations = {"ฝึกทักษะการสื่อสารและการทำงานร่วมกับผู้อื่นก่อนออกสหกิจ": "Practise communicating and working with others before your placement", "การเตรียมความพร้อมก่อนออกปฏิบัติงาน": "Preparing for a work placement", "กิจกรรมความร่วมมือด้านสหกิจศึกษา": "Cooperative education partnership activities", "การเตรียมเอกสารก่อนออกสหกิจ": "Documents to prepare before your placement", "การแบ่งปันประสบการณ์สหกิจศึกษา": "Sharing CWIE placement experiences", "ติดตามข้อมูลกิจกรรมและประกาศจากมหาวิทยาลัย": "Follow university activities and announcements", "รอประกาศกำหนดการและรายละเอียด": "Schedule and details pending", "ยังไม่ระบุวันที่": "Date pending", "รายการเอกสารที่นิสิตควรตรวจสอบก่อนเริ่มปฏิบัติงาน": "A checklist of documents to review before starting work", "ทักษะการทำงานและการสื่อสาร": "Workplace and communication skills", "กิจกรรมสำหรับนิสิต CWIE": "Activities for CWIE students", "นิสิตรุ่นพี่เล่าประสบการณ์จากการปฏิบัติงานจริง": "Senior students share what they learned during their placements", "ข่าวความร่วมมือระหว่างมหาวิทยาลัยกับสถานประกอบการ": "News about university and employer partnerships", "กลับไปหน้าข่าว": "Back to news"};
+const articles = [...document.querySelectorAll('article')];
+let english = false;
+try {
+  english = localStorage.getItem('cwie-language') === 'en';
+  document.documentElement.dataset.theme = localStorage.getItem('cwie-theme') || 'light';
+} catch (error) {}
+if (english) {
+  document.documentElement.lang = 'en';
+  for (const node of document.querySelectorAll('h1, p, main > a')) {
+    node.textContent = translations[node.textContent] || node.textContent;
+  }
+}
+function showNews() {
+  const selected = articles.find(article => '#' + article.id === location.hash) || articles[0];
+  for (const article of articles) article.hidden = article !== selected;
+  document.title = selected.querySelector('h1').textContent + ' | CWIE UP';
+}
+window.addEventListener('hashchange', showNews);
+showNews();
+</script>
+</body>
+</html>

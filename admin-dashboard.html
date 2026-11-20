@@ -38,7 +38,6 @@
     .site-link { margin-top: auto; }
     [hidden] { display: none !important; }
     main { width: 100%; max-width: 1340px; min-width: 0; padding: clamp(24px, 4vw, 60px); }
-    .prototype { display: inline-block; color: var(--gold); font-size: 13px; font-weight: 600; margin-bottom: 14px; }
     .page-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
     h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.2; letter-spacing: -.025em; }
     .page-head p { color: var(--muted); margin-top: 7px; }
@@ -115,7 +114,6 @@
     .brand { padding-bottom:20px; border-bottom:1px solid #514063; }
     .sidebar nav a { color:#efe7f9; }
     main { max-width:1240px; margin-inline:auto; padding:clamp(20px,4vw,52px); }
-    .prototype { padding:3px 10px; border-radius:6px; background:#eee7f8; color:#52317d; }
     .page-head { margin-bottom:26px; }
     .panel { box-shadow:0 4px 16px rgb(44 27 66 / .04); }
     .overview-summary { overflow:hidden; padding:0; }
@@ -173,6 +171,114 @@
     .category-add { display:flex; flex-wrap:wrap; align-items:end; gap:8px; }
     .category-add label { flex:1 1 180px; }
     .category-add .feedback { flex-basis:100%; margin:0; }
+    /* Dashboard hierarchy */
+    :root { --canvas:#f5f4f7; --ink:#261a34; --muted:#5f5769; --line:#e4dfe9; }
+    .sidebar {
+      background:#291b3a;
+      border-inline-end:1px solid #453451;
+      gap:22px;
+    }
+    .sidebar nav a { border:1px solid transparent; }
+    .sidebar nav a:hover { background:#3a294d; }
+    .sidebar nav [aria-current] {
+      background:transparent;
+      border-color:transparent;
+      border-radius:0;
+      box-shadow:inset 2px 0 #d4ad76;
+    }
+    .sidebar .site-link { border-top:1px solid #514063; border-radius:0; }
+    .page-head { padding-bottom:20px; border-bottom:1px solid var(--line); }
+    h1 { font-size:clamp(28px,4vw,40px); }
+    .panel { border-radius:13px; box-shadow:0 3px 12px rgb(38 26 52 / .035); }
+    .overview-summary caption { padding-block:19px 15px; }
+    .overview-summary thead { background:#f4f1f7; }
+    .overview-summary td { padding-block:9px; }
+    .overview-summary td a {
+      min-width:48px;
+      padding-inline:8px;
+      text-decoration:none;
+    }
+    .overview-summary td[data-draft] a { background:#fbf3dc; }
+    .overview-summary td[data-published] a { background:#eaf5ed; }
+    .overview-summary td[data-draft] a:hover { background:#f5e9c3; }
+    .overview-summary td[data-published] a:hover { background:#dcefe3; }
+    .overview-summary td a:hover,
+    .overview-summary td a:focus-visible { text-decoration:underline; }
+    .status { color:#21603d; background:#eaf5ed; }
+    .status.draft { color:#745300; background:#fbf3dc; }
+    .status-filters { margin-block:8px 12px; }
+    .status-filters a[aria-current] { background:#eee7f6; color:#432066; }
+    .rows li { padding-block:11px; }
+    .row-action, .preview-button { border:1px solid var(--line); background:#fff; }
+    .row-action:hover, .preview-button:hover { background:#f4eef9; border-color:#cbb8df; }
+    .row-action.danger:hover { background:#fff0f1; border-color:#e7c6ce; }
+    .mock-form label { font-weight:500; }
+    .mock-form :is(input,textarea,select) { font-weight:400; }
+    summary:focus-visible, select:focus-visible { outline:3px solid #c4996c; outline-offset:3px; }
+    @media (min-width:641px) {
+      .sidebar { position:sticky; top:0; height:100vh; height:100dvh; overflow:auto; }
+    }
+    @media (max-width:640px) {
+      .page-head { padding-bottom:16px; margin-bottom:18px; }
+      .overview-summary td a { min-width:44px; }
+    }
+
+    /* Keep actions and status visible without extra panels. */
+    :root { --canvas:#f8f6f2; --line:#e6dfea; }
+    .page-head { align-items:center; margin-bottom:20px; }
+    h1 { font-size:clamp(27px,3.4vw,36px); }
+    .panel, .overview-summary { border-radius:8px; box-shadow:none; }
+    .overview-summary td a { text-decoration:underline; text-underline-offset:4px; }
+    .overview-summary td:is([data-draft],[data-published]) a { background:transparent; }
+    .overview-summary td a:hover { background:#f2ebf7; }
+    .status-filters { gap:14px; border-bottom:1px solid var(--line); }
+    .status-filters a { border-radius:0; padding-inline:2px; border-bottom:2px solid transparent; }
+    .status-filters a:hover, .status-filters a[aria-current] { background:transparent; }
+    .status-filters a[aria-current] { border-bottom-color:currentColor; }
+    .row-action, .preview-button { border:1px solid transparent; background:transparent; }
+    dialog { --editor-padding:24px; padding:var(--editor-padding); scroll-padding-bottom:98px; }
+    dialog form fieldset { margin:0; padding:0; border:0; }
+    dialog legend { padding:0; margin-bottom:8px; }
+    dialog details { border-block:1px solid var(--line); }
+    dialog details[open] { padding-bottom:12px; }
+    .editor-preview-tools { display:flex; flex-wrap:wrap; align-items:center; gap:4px 8px; }
+    .editor-preview-tools > span { color:var(--muted); font-size:.875rem; }
+    .editor-preview-tools button { text-decoration:underline; text-underline-offset:4px; }
+    .editor-actions {
+      position:sticky;
+      bottom:calc(-1 * var(--editor-padding));
+      z-index:1;
+      margin:0 calc(-1 * var(--editor-padding)) calc(-1 * var(--editor-padding));
+      padding:10px var(--editor-padding);
+      border-top:1px solid var(--line);
+      background:var(--paper);
+    }
+    .editor-actions [data-close] { margin-inline-end:auto; }
+    @media (max-width:640px) {
+      dialog { --editor-padding:16px; }
+      .sidebar { gap:9px; }
+      .sidebar nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .sidebar nav a { min-width:0; padding-inline:8px; }
+      .sidebar .site-link { margin-top:0; }
+      .page-head { gap:12px; }
+      .page-head .preview-actions { justify-content:flex-start; }
+      .editor-actions { gap:4px; }
+      .editor-actions :is(.primary,.preview-button) { padding-inline:9px; }
+    }
+    .rows[data-items] > li:has(.row-title) {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 108px 64px 48px;
+      gap:8px;
+    }
+    .rows[data-items] .status { justify-self:start; border-radius:4px; }
+    @media (max-width:640px) {
+      .sidebar { border-inline-end:0; border-bottom:1px solid var(--line); }
+      .rows[data-items] > li:has(.row-title) {
+        grid-template-columns:minmax(0,1fr) 64px 48px;
+        row-gap:2px;
+      }
+      .rows[data-items] .row-title { grid-column:1 / -1; }
+    }
   </style>
 </head>
 <body>
@@ -180,25 +286,23 @@
     <aside class="sidebar">
       <div class="brand">
         <img src="../assets/up-emblem.png" alt="" width="38" height="47">
-        <div><strong>CWIE UP</strong><span>ระบบจัดการเว็บไซต์</span></div>
+        <div><strong>CWIE UP</strong><span>โหมดทดลอง</span></div>
       </div>
       <nav aria-label="เมนูผู้ดูแล">
         <a href="#overview" aria-current="page">ภาพรวม</a>
         <a href="#news">ข่าวประชาสัมพันธ์</a>
         <a href="#events">ปฏิทินกิจกรรม</a>
-        <a href="#documents">เอกสาร</a>
-        <a href="#contact-settings">ข้อมูลติดต่อ</a>
+        <a href="#documents">ระเบียบและประกาศ</a>
+        <a href="#contact-settings">ติดต่อเรา</a>
         <a href="#statistics">สถิติ</a>
       </nav>
       <a class="site-link" href="cwie-v1.3-minimal.html">ดูเว็บไซต์ CWIE <span aria-hidden="true"> ↗</span></a>
     </aside>
 
     <main id="overview">
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
         <div>
-          <h1>ภาพรวม CWIE</h1>
-          <p>มหาวิทยาลัยพะเยา</p>
+          <h1>ภาพรวม</h1>
         </div>
       </header>
 
@@ -218,9 +322,8 @@
     </main>
 
     <main id="news" hidden>
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
-        <div><h1>ข่าวประชาสัมพันธ์</h1><p>จัดการข่าวร่างและข่าวที่เผยแพร่แล้ว</p></div>
+        <div><h1>ข่าวประชาสัมพันธ์</h1></div>
         <div class="preview-actions">
           <button class="preview-button" type="button" id="open-categories">จัดการหมวดหมู่</button>
           <button class="primary" type="button" data-open-article>เพิ่มข่าว</button>
@@ -228,51 +331,37 @@
       </header>
       <section class="panel" aria-labelledby="manage-news-heading">
         <h2 id="manage-news-heading">รายการข่าว</h2>
-        <ul class="rows" data-items="news">
-          <li><span>กิจกรรมความร่วมมือด้านสหกิจศึกษา</span><span class="status">เผยแพร่แล้ว</span></li>
-          <li><span>เตรียมความพร้อมก่อนออกปฏิบัติงาน</span><span class="status draft">ฉบับร่าง</span></li>
-          <li><span>กิจกรรมสำหรับนิสิต CWIE</span><span class="status draft">ฉบับร่าง</span></li>
-        </ul>
+        <ul class="rows" data-items="news" data-records="[{&quot;fields&quot;: {&quot;title-th&quot;: &quot;กิจกรรมความร่วมมือด้านสหกิจศึกษา&quot;}, &quot;status&quot;: &quot;published&quot;}, {&quot;fields&quot;: {&quot;title-th&quot;: &quot;เตรียมความพร้อมก่อนออกปฏิบัติงาน&quot;}, &quot;status&quot;: &quot;draft&quot;}, {&quot;fields&quot;: {&quot;title-th&quot;: &quot;กิจกรรมสำหรับนิสิต CWIE&quot;}, &quot;status&quot;: &quot;draft&quot;}]"></ul>
       </section>
     </main>
 
     <main id="events" hidden>
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
-        <div><h1>ปฏิทินกิจกรรม</h1><p>จัดวันอบรมและวันประเมิน</p></div>
+        <div><h1>ปฏิทินกิจกรรม</h1></div>
         <button class="primary" type="button" data-open-record="events">เพิ่มกิจกรรม</button>
       </header>
         <section class="panel" aria-labelledby="manage-events-heading">
           <h2 id="manage-events-heading">รายการกิจกรรม</h2>
-          <ul class="rows" data-items="events">
-            <li><time datetime="2027-01-15">15 ม.ค.</time><span>อบรมเตรียมความพร้อม</span><span class="status">อบรม</span></li>
-            <li><time datetime="2027-02-05">5 ก.พ.</time><span>ประเมินความพร้อมก่อนปฏิบัติงาน</span><span class="status draft">ประเมิน</span></li>
-          </ul>
+          <ul class="rows" data-items="events" data-records="[{&quot;fields&quot;: {&quot;event-name&quot;: &quot;อบรมเตรียมความพร้อม&quot;, &quot;event-date&quot;: &quot;2027-01-15&quot;, &quot;event-type&quot;: &quot;อบรม&quot;}, &quot;status&quot;: &quot;draft&quot;}, {&quot;fields&quot;: {&quot;event-name&quot;: &quot;ประเมินความพร้อมก่อนปฏิบัติงาน&quot;, &quot;event-date&quot;: &quot;2027-02-05&quot;, &quot;event-type&quot;: &quot;ประเมิน&quot;}, &quot;status&quot;: &quot;draft&quot;}]"></ul>
         </section>
     </main>
 
     <main id="documents" hidden>
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
-        <div><h1>เอกสาร</h1><p>ระเบียบ ประกาศ และข้อบังคับที่นิสิตดาวน์โหลดได้</p></div>
+        <div><h1>ระเบียบ ประกาศ และข้อบังคับ</h1></div>
         <button class="primary" type="button" data-open-record="documents">เพิ่มเอกสาร</button>
       </header>
         <section class="panel" aria-labelledby="manage-documents-heading">
           <h2 id="manage-documents-heading">รายการเอกสาร</h2>
-          <ul class="rows" data-items="documents">
-            <li><span>ระเบียบการดำเนินงานสหกิจศึกษา</span><span class="status draft">รอไฟล์</span></li>
-            <li><span>ประกาศกำหนดการสหกิจศึกษา</span><span class="status draft">รอไฟล์</span></li>
-            <li><span>ข้อบังคับการจัดการศึกษา CWIE</span><span class="status draft">รอไฟล์</span></li>
-          </ul>
+          <ul class="rows" data-items="documents" data-records="[{&quot;fields&quot;: {&quot;document-name&quot;: &quot;ระเบียบการดำเนินงานสหกิจศึกษา&quot;, &quot;document-type&quot;: &quot;ระเบียบ&quot;}, &quot;status&quot;: &quot;draft&quot;}, {&quot;fields&quot;: {&quot;document-name&quot;: &quot;ประกาศกำหนดการสหกิจศึกษา&quot;, &quot;document-type&quot;: &quot;ประกาศ&quot;}, &quot;status&quot;: &quot;draft&quot;}, {&quot;fields&quot;: {&quot;document-name&quot;: &quot;ข้อบังคับการจัดการศึกษา CWIE&quot;, &quot;document-type&quot;: &quot;ข้อบังคับ&quot;}, &quot;status&quot;: &quot;draft&quot;}]"></ul>
         </section>
     </main>
 
     <main id="contact-settings" hidden>
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
         <div>
           <h1 id="contact-settings-heading">ข้อมูลติดต่อ</h1>
-          <p>ข้อมูลนี้แสดงในหน้าติดต่อเราและท้ายเว็บไซต์</p>
+          <p>แสดงในส่วนติดต่อเราท้ายเว็บไซต์</p>
         </div>
       </header>
       <section class="panel" aria-labelledby="contact-settings-heading">
@@ -286,6 +375,10 @@
             <label>เบอร์โทรศัพท์ <input name="phone" type="tel" autocomplete="tel"></label>
             <label>เบอร์ต่อ <input name="extension" type="tel" value="1023" autocomplete="tel-extension"></label>
           </div>
+          <div class="field-pair">
+            <label>อีเมล <input name="email" type="email" autocomplete="email"></label>
+            <label>เวลาทำการ <input name="office-hours"></label>
+          </div>
           <div class="preview-actions">
             <button class="primary" type="submit">บันทึกข้อมูลติดต่อ</button>
           </div>
@@ -295,9 +388,8 @@
     </main>
 
     <main id="statistics" hidden>
-      <span class="prototype">โหมดทดลอง</span>
       <header class="page-head">
-        <div><h1>สถิติ</h1><p>ยอดนิสิตและสถานประกอบการที่แสดงบนเว็บ</p></div>
+        <div><h1>สถิติ</h1></div>
       </header>
       <div class="panels">
         <section class="panel" aria-labelledby="manage-stats-heading">
@@ -308,8 +400,9 @@
           </div>
         </section>
         <section class="panel">
-          <h2>แหล่งข้อมูล</h2>
-          <p>รอยืนยันว่าจะใช้ข้อมูลจากไหน และใครจะเป็นคนอัปเดต</p>
+          <h2>สถิติการเข้าชมเว็บไซต์</h2>
+          <p>ผู้เยี่ยมชมและยอดเปิดหน้าเว็บจะแสดงเมื่อเชื่อมระบบนับยอด</p>
+          
         </section>
       </div>
     </main>
@@ -330,31 +423,39 @@
 
   <dialog id="article-preview" aria-labelledby="preview-heading">
     <h2 id="preview-heading">เพิ่มข่าว</h2>
-    <p>ลองบันทึกร่างหรือเผยแพร่ได้ ข้อมูลที่กรอกจะหายเมื่อโหลดหน้าใหม่</p>
+    <p>ข้อมูลทดลองจะหายเมื่อโหลดหน้าใหม่</p>
     <form class="mock-form" novalidate>
       <fieldset>
-        <legend>ภาษาไทย</legend>
+        <legend>เนื้อหาภาษาไทย</legend>
         <label>หัวข้อข่าว <input name="title-th"></label>
         <label>เนื้อหาข่าว <textarea name="body-th" rows="4"></textarea></label>
       </fieldset>
       <details>
-        <summary>ภาษาอังกฤษ (ถ้ามี)</summary>
+        <summary>เพิ่มเนื้อหาภาษาอังกฤษ (ถ้ามี)</summary>
         <label>หัวข้อภาษาอังกฤษ <input name="title-en" lang="en"></label>
         <label>เนื้อหาภาษาอังกฤษ <textarea name="body-en" lang="en" rows="3"></textarea></label>
       </details>
       <label>หมวดหมู่ข่าว
         <select name="category"><option value="">ไม่ระบุหมวด</option><option>รับสมัครสหกิจ</option><option>กิจกรรมและอบรม</option><option>ประกาศและกำหนดส่ง</option></select>
       </label>
+      <label>วันที่ข่าว <input name="news-date" type="date"></label>
       <label>รูปปกข่าว <input name="cover" type="file" accept="image/jpeg,image/png,image/webp"></label>
       <img id="cover-preview" class="cover-preview" alt="ตัวอย่างรูปปกข่าว" hidden>
+      <div class="editor-preview-tools" role="group" aria-label="ตัวอย่างข่าว">
+        <span>ตัวอย่างข่าว</span>
+        <button class="preview-button" type="button" data-news-preview="card">การ์ดข่าว</button>
+        <button class="preview-button" type="button" data-news-preview="detail">หน้ารายละเอียด</button>
+      </div>
       <section id="news-card-preview" class="news-card-preview" hidden>
         <h3 id="news-card-title"></h3>
-        <p id="news-card-summary"></p>
+        <p id="news-card-date"></p>
+        <p id="news-card-summary" style="white-space:pre-wrap"></p>
       </section>
       <p class="feedback" role="status"></p>
-      <div class="preview-actions">
-        <button class="preview-button" type="button" data-close>ปิด</button>
-        <button class="preview-button" type="button" id="show-news-card">ดูตัวอย่าง</button>
+      <div class="preview-actions editor-actions">
+        <button class="preview-button" type="button" data-close>ยกเลิก</button>
+
+
         <button class="preview-button" type="submit" value="draft">บันทึกร่าง</button>
         <button class="primary" type="submit" value="published">เผยแพร่</button>
       </div>
@@ -362,7 +463,7 @@
   </dialog>
   <dialog id="record-editor" aria-labelledby="record-heading">
     <h2 id="record-heading"></h2>
-    <p>ลองบันทึกร่างหรือเผยแพร่ได้ ข้อมูลที่กรอกจะหายเมื่อโหลดหน้าใหม่</p>
+    <p>ข้อมูลทดลองจะหายเมื่อโหลดหน้าใหม่</p>
     <form class="mock-form" novalidate>
       <div class="mock-form" data-fields="events">
         <label>ชื่อกิจกรรม <input name="event-name"></label>
@@ -373,7 +474,8 @@
           <label>เวลาสิ้นสุด <input type="time" name="end-time"></label>
         </div>
         <label>สถานที่ <input name="location"></label>
-        <label>รายละเอียด <textarea name="event-description" rows="3"></textarea></label>
+        <label>รายละเอียดกิจกรรม <textarea name="event-description" rows="3"></textarea></label>
+        <label>สิ่งที่ต้องเตรียม <textarea name="event-preparation" rows="2"></textarea></label>
       </div>
       <div class="mock-form" data-fields="documents">
         <label>ชื่อเอกสาร <input name="document-name"></label>
@@ -383,9 +485,16 @@
         <label>ไฟล์ PDF <input type="file" name="document-file" accept=".pdf,application/pdf"></label>
         <p id="attached-document"></p>
       </div>
+      <div class="editor-preview-tools" role="group" aria-label="ตัวอย่างหน้าบ้าน">
+        <button class="preview-button" type="button" id="show-record-preview">ดูตัวอย่างหน้าบ้าน</button>
+      </div>
+      <section id="record-display-preview" class="news-card-preview" hidden>
+        <h3></h3><p style="white-space:pre-wrap"></p>
+      </section>
       <p class="feedback" role="status"></p>
-      <div class="preview-actions">
-        <button class="preview-button" type="button" data-close>ปิด</button>
+      <div class="preview-actions editor-actions">
+        <button class="preview-button" type="button" data-close>ยกเลิก</button>
+
         <button class="preview-button" type="submit" value="draft">บันทึกร่าง</button>
         <button class="primary" type="submit" value="published">เผยแพร่</button>
       </div>
@@ -442,18 +551,7 @@
 
     lists.forEach(list => {
       const type = list.dataset.items;
-      records[type] = [...list.children].map(row => {
-        const text = [...row.querySelectorAll('span')].map(span => span.textContent);
-        const fields = { [titleField[type]]: text[0] };
-        if (type === 'events') {
-          fields['event-date'] = row.querySelector('time').dateTime;
-          fields['event-type'] = text[1];
-        }
-        if (type === 'documents') {
-          fields['document-type'] = ['ระเบียบ', 'ประกาศ', 'ข้อบังคับ'].find(value => text[0].startsWith(value)) || 'ประกาศ';
-        }
-        return { fields, status: text[1] === 'เผยแพร่แล้ว' ? 'published' : 'draft' };
-      });
+      records[type] = JSON.parse(list.dataset.records);
       const filters = document.createElement('nav');
       filters.className = 'status-filters';
       filters.setAttribute('aria-label', 'กรองตามสถานะ');
@@ -609,8 +707,9 @@
     function showCover(file) {
       if (activeCoverUrl) URL.revokeObjectURL(activeCoverUrl);
       activeCoverUrl = file ? URL.createObjectURL(file) : undefined;
-      coverPreview.hidden = !file;
-      if (file) coverPreview.src = activeCoverUrl;
+      const src = activeCoverUrl;
+      coverPreview.hidden = !src;
+      if (src) coverPreview.src = src;
       else coverPreview.removeAttribute('src');
     }
 
@@ -636,6 +735,7 @@
         showCover(record?.file);
       }
       document.getElementById('attached-document').textContent = record?.file?.name || '';
+      document.getElementById('record-display-preview').hidden = true;
       dialog.showModal();
     }
 
@@ -647,11 +747,43 @@
     });
     newsCover.addEventListener('change', () => showCover(newsCover.files[0] || selected?.file));
     preview.addEventListener('close', () => showCover());
-    document.getElementById('show-news-card').addEventListener('click', () => {
-      const form = preview.querySelector('form');
-      document.getElementById('news-card-title').textContent = form.elements['title-th'].value.trim() || 'หัวข้อข่าว';
-      document.getElementById('news-card-summary').textContent = form.elements['body-th'].value.trim().slice(0, 160) || 'เนื้อหาข่าว';
-      newsCard.hidden = false;
+    const formatPreviewDate = new Intl.DateTimeFormat('th-TH', {dateStyle:'long', timeZone:'UTC'});
+    function previewDate(value) {
+      return value ? formatPreviewDate.format(new Date(value)) : 'ยังไม่ระบุวันที่';
+    }
+
+    preview.querySelectorAll('[data-news-preview]').forEach(button => {
+      button.addEventListener('click', () => {
+        const form = preview.querySelector('form');
+        const detail = button.dataset.newsPreview === 'detail';
+        document.getElementById('news-card-title').textContent = form.elements['title-th'].value.trim() || 'หัวข้อข่าว';
+        document.getElementById('news-card-date').textContent = previewDate(form.elements['news-date'].value);
+        document.getElementById('news-card-summary').textContent = detail ? (form.elements['body-th'].value.trim() || 'เนื้อหาข่าว') : '';
+        newsCard.hidden = false;
+      });
+    });
+
+    const recordPreview = document.getElementById('record-display-preview');
+    document.getElementById('show-record-preview').addEventListener('click', () => {
+      const form = editor.querySelector('form');
+      const value = name => form.elements.namedItem(name).value.trim();
+      const isEvent = kind === 'events';
+      const time = [value('start-time'), value('end-time')].filter(Boolean).map(part => part.replace(':', '.')).join(' - ');
+      const file = form.elements['document-file'].files[0] || selected?.file;
+      recordPreview.querySelector('h3').textContent = value(titleField[kind]) || (isEvent ? 'ชื่อกิจกรรม' : 'ชื่อเอกสาร');
+      recordPreview.querySelector('p').textContent = (isEvent ? [
+        'ปฏิทิน' + value('event-type'),
+        previewDate(value('event-date')),
+        value('event-description'),
+        time && 'เวลา ' + time + ' น.',
+        value('event-preparation') && 'สิ่งที่ต้องเตรียม ' + value('event-preparation'),
+        value('location') && 'สถานที่ ' + value('location')
+      ] : [
+        value('document-type'),
+        previewDate(value('document-date')),
+        file ? 'PDF · ' + file.name : 'รอไฟล์ PDF'
+      ]).filter(Boolean).join('\n');
+      recordPreview.hidden = false;
     });
 
     [preview, editor].forEach(dialog => {
@@ -677,13 +809,15 @@
               events: 'ใส่ชื่อกิจกรรมและวันที่จัดก่อนเผยแพร่',
               documents: 'ใส่ชื่อเอกสารและแนบ PDF ก่อนเผยแพร่'
             }[kind];
+            feedback.scrollIntoView({block:'nearest'});
             return;
           }
           if (!confirm('เผยแพร่รายการนี้ในโหมดทดลองไหม?')) return;
         }
         if (kind === 'events' && fields['start-time'] && fields['end-time'] &&
             fields['end-time'] < fields['start-time']) {
-          feedback.textContent = 'เลือกเวลาสิ้นสุดให้ตรงกับเวลาเริ่มหรือหลังจากนั้น';
+          feedback.textContent = 'เวลาสิ้นสุดต้องตรงกับหรือหลังเวลาเริ่ม';
+          feedback.scrollIntoView({block:'nearest'});
           return;
         }
         const record = { fields, status, file };
