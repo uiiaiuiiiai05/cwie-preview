@@ -2552,6 +2552,70 @@
       .section-wave .wave-front { animation: wave-drift 11s ease-in-out infinite alternate-reverse; }
     }
     @keyframes wave-drift { from { transform: translateX(-10%); } to { transform: translateX(0); } }
+    #documents a.document-status {
+      display:inline-flex; align-items:center; gap:8px; min-height:44px;
+      width:fit-content; color:inherit; font-weight:600; text-decoration:none;
+    }
+    #documents a.document-status:hover,
+    #documents a.document-status:focus-visible { color:var(--c-dark-lavender, var(--c-blue-hover)); }
+    #documents .document-grid a.document-status .document-link-label { all:unset; }
+    #documents .document-link-arrow { flex:none; width:16px; height:16px; }
+    @media (prefers-reduced-motion: no-preference) {
+      #documents a.document-status { transition:color .18s ease, transform .18s ease; }
+      #documents a.document-status:hover,
+      #documents a.document-status:focus-visible { transform:translateX(3px); }
+    }
+    #documents .document-disclosure {
+      display:grid; grid-template-rows:0fr; opacity:0; visibility:hidden;
+    }
+    #documents .document-disclosure.is-open {
+      grid-template-rows:1fr; opacity:1; visibility:visible;
+    }
+    #documents .document-disclosure-body { min-height:0; overflow:hidden; }
+    #documents .document-list-panel {
+      margin-top:16px; padding:clamp(14px,3vw,24px);
+      border:1px solid var(--c-border); border-radius:14px; color:var(--c-text-body);
+    }
+    #documents .document-list-head,
+    #documents .document-list-panel li {
+      display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px 16px;
+    }
+    #documents .document-list-head h3 { margin:0; color:var(--c-text-title); }
+    #documents .document-disclosure .document-list-panel {
+      border-color:#c7addd;
+    }
+    #documents .document-disclosure .document-list-head h3 {
+      padding-inline-start:12px;
+      border-inline-start:3px solid #b48a50;
+    }
+    html[data-theme="dark"] #documents .document-disclosure .document-list-panel {
+      border-color:#80639c;
+    }
+    #documents .document-list-panel ul { margin:4px 0 0; padding:0; list-style:none; }
+    #documents .document-list-panel li {
+      position:relative; padding:12px 10px; border-top:1px solid var(--c-border); border-radius:8px;
+    }
+    @media (hover:hover) {
+      #documents .document-list-panel li:hover {
+        z-index:1; border-top-color:transparent; background:var(--c-bg, #fcf7ee);
+        box-shadow:0 5px 16px rgb(48 24 74 / .10);
+      }
+      html[data-theme="dark"] #documents .document-list-panel li:hover {
+        background:#2a2233; box-shadow:0 5px 16px rgb(0 0 0 / .25);
+      }
+    }
+    @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+      #documents .document-list-panel li { transition:transform .18s ease, box-shadow .2s ease, background-color .2s ease; }
+      #documents .document-list-panel li:hover { transform:translateY(-2px); }
+    }
+    #documents .document-list-panel time,
+    #documents .document-list-panel small { display:block; color:var(--c-text-muted); }
+    #documents a.document-status[aria-expanded="true"] .document-link-arrow { transform:rotate(90deg); }
+    @media (prefers-reduced-motion:no-preference) {
+      #documents .document-disclosure { transition:grid-template-rows .3s ease, opacity .22s ease, visibility 0s linear .3s; }
+      #documents .document-disclosure.is-open { transition-delay:0s; }
+      #documents .document-link-arrow { transition:transform .2s ease; }
+    }
     /* Footer contact layout */
     .site-footer .contact-layout {
       display: grid;
@@ -3083,9 +3147,19 @@
     <section id="documents" class="container home-section">
       <div class="section-head"><p class="section-kicker">ข้อมูลและเอกสาร</p><h2 class="section-heading">ระเบียบ ประกาศ และข้อบังคับ</h2><p class="sample-note">รายการตัวอย่าง ยังไม่มีไฟล์ให้ดาวน์โหลด</p></div>
       <div class="document-grid">
-        <article><span>01</span><h3>ระเบียบ</h3><p>ระเบียบที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา</p><p class="document-status">รอไฟล์เอกสาร</p></article>
-        <article><span>02</span><h3>ประกาศ</h3><p>ประกาศและกำหนดการจากมหาวิทยาลัย</p><p class="document-status">รอไฟล์เอกสาร</p></article>
-        <article><span>03</span><h3>ข้อบังคับ</h3><p>ข้อบังคับที่เกี่ยวข้องกับการจัดการศึกษา CWIE</p><p class="document-status">รอไฟล์เอกสาร</p></article>
+        <article><span>01</span><h3>ระเบียบ</h3><p>ระเบียบที่เกี่ยวข้องกับการดำเนินงานสหกิจศึกษา</p><a class="document-status" href="cwie-documents.html?type=regulations"><span class="document-link-label">ดูรายการเอกสาร</span><svg class="document-link-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></article>
+        <article><span>02</span><h3>ประกาศ</h3><p>ประกาศและกำหนดการจากมหาวิทยาลัย</p><a class="document-status" href="cwie-documents.html?type=notices"><span class="document-link-label">ดูรายการเอกสาร</span><svg class="document-link-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></article>
+        <article><span>03</span><h3>ข้อบังคับ</h3><p>ข้อบังคับที่เกี่ยวข้องกับการจัดการศึกษา CWIE</p><a class="document-status" href="cwie-documents.html?type=rules"><span class="document-link-label">ดูรายการเอกสาร</span><svg class="document-link-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></article>
+      </div>
+      <div class="document-disclosure" id="document-disclosure" aria-hidden="true" inert>
+        <div class="document-disclosure-body">
+          <section class="document-list-panel" aria-labelledby="document-list-heading">
+            <div class="document-list-head">
+              <h3 id="document-list-heading"></h3>
+            </div>
+            <ul></ul>
+          </section>
+        </div>
       </div>
     </section>
     <section id="stats" class="stats-editorial-strip">
@@ -3479,6 +3553,68 @@
       }
 
     })();
+  </script>
+  <script src="cwie-document-data.js"></script>
+  <script>
+    if (typeof cwieDocumentGroups !== 'undefined') {
+      const documentPanel = document.getElementById('document-disclosure');
+      const documentTriggers = [...document.querySelectorAll('#documents a.document-status')];
+      let openDocumentTrigger = null;
+
+      function updateDocumentPanel() {
+        const isOpen = Boolean(openDocumentTrigger);
+        documentPanel.classList.toggle('is-open', isOpen);
+        documentPanel.inert = !isOpen;
+        documentPanel.setAttribute('aria-hidden', String(!isOpen));
+        for (const trigger of documentTriggers) {
+          trigger.setAttribute('aria-expanded', String(trigger === openDocumentTrigger));
+        }
+        if (!isOpen) return;
+
+        const english = document.documentElement.lang === 'en';
+        const type = new URL(openDocumentTrigger.href).searchParams.get('type');
+        documentPanel.dataset.type = type;
+        const group = cwieDocumentGroups[type];
+        const format = new Intl.DateTimeFormat(english ? 'en-GB' : 'th-TH', { dateStyle:'long', timeZone:'UTC' });
+        documentPanel.querySelector('h3').textContent = group.names[Number(english)];
+        const rows = [...group.documents].sort((a, b) => b[0].localeCompare(a[0])).map(([date, thai, englishTitle]) => {
+          const row = document.createElement('li');
+          const info = document.createElement('div');
+          const title = document.createElement('strong');
+          const time = document.createElement('time');
+          const status = document.createElement('small');
+          title.textContent = english ? englishTitle : thai;
+          time.dateTime = date;
+          time.textContent = format.format(new Date(date));
+          status.textContent = english ? 'PDF pending' : 'รอไฟล์ PDF';
+          info.append(title, time);
+          row.append(info, status);
+          return row;
+        });
+        documentPanel.querySelector('ul').replaceChildren(...rows);
+      }
+
+      for (const trigger of documentTriggers) {
+        trigger.setAttribute('role', 'button');
+        trigger.setAttribute('aria-controls', documentPanel.id);
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.addEventListener('keydown', event => {
+          if (event.key !== ' ') return;
+          event.preventDefault();
+          trigger.click();
+        });
+        trigger.addEventListener('click', event => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          openDocumentTrigger = openDocumentTrigger === trigger ? null : trigger;
+          updateDocumentPanel();
+          if (openDocumentTrigger && documentPanel.getBoundingClientRect().top > window.innerHeight - 72) {
+            documentPanel.scrollIntoView({ block:'start', behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+          }
+        });
+      }
+      new MutationObserver(updateDocumentPanel).observe(document.documentElement, { attributes:true, attributeFilter:['lang'] });
+    }
   </script>
 </body>
 </html>
