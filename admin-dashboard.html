@@ -280,8 +280,59 @@
       .rows[data-items] .row-title { grid-column:1 / -1; }
     }
   </style>
+
+<style>
+body:not(.admin-demo-open) > .shell { display:none; }
+#admin-login { min-height:100svh; padding:32px clamp(24px,6vw,96px); }
+.login-back { display:inline-flex; align-items:center; min-height:44px; color:var(--muted); text-decoration:none; font-size:14px; }
+.login-back:hover { color:var(--purple); }
+.login-layout { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(48px,10vw,160px); max-width:1050px; margin:clamp(40px,10vh,110px) auto; }
+.login-identity { border-left:3px solid #c4996c; padding-left:32px; }
+.login-identity img { object-fit:contain; margin-bottom:20px; }
+.login-identity h1 { font-size:clamp(28px,3.2vw,42px); line-height:1.5; margin:20px 0; }
+.login-identity p { color:var(--muted); }
+.login-form { width:100%; max-width:410px; }
+.login-eyebrow { color:var(--gold); font-size:14px; }
+.login-form h2 { font-size:30px; margin:8px 0; }
+.login-intro { color:var(--muted); margin:0 0 30px; font-size:14px; }
+.login-form label { display:block; font-size:14px; font-weight:600; margin:20px 0 8px; }
+.login-form input { width:100%; min-height:50px; border:1px solid var(--line); border-radius:8px; background:var(--paper); padding:12px 14px; color:var(--ink); font:inherit; }
+.login-password-wrap { position:relative; }
+.login-password-wrap input { padding-right:72px; }
+#login-password-toggle { position:absolute; right:4px; top:3px; min-height:44px; min-width:60px; border:0; background:transparent; color:var(--purple); font:inherit; font-size:13px; }
+.login-submit { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:50px; margin-top:28px; padding:12px 18px; border:0; border-radius:8px; background:var(--purple); color:white; font:inherit; font-weight:600; transition:background .2s,box-shadow .2s; }
+.login-submit:hover { background:#402064; box-shadow:0 5px 16px #51278320; }
+.login-notice { color:var(--muted); font-size:13px; line-height:1.7; margin-top:18px; }
+@media(max-width:720px) { .login-layout { grid-template-columns:1fr; gap:36px; margin:32px auto; max-width:410px; } .login-identity h1 { display:none; } .login-identity { padding-left:20px; } .login-identity img { width:36px; height:45px; margin:0; } .login-identity p { margin:6px 0; font-size:14px; } }
+@media(prefers-reduced-motion:reduce) { .login-submit { transition:none; } }
+</style>
 </head>
 <body>
+<section id="admin-login" aria-labelledby="login-title">
+  <div class="login-layout">
+    <div class="login-identity">
+      <img src="./assets/up-emblem.png" alt="ตรามหาวิทยาลัยพะเยา" width="62" height="78">
+      <p>มหาวิทยาลัยพะเยา</p>
+      <h1>ดูแลข่าวสาร<br>ให้พร้อมสำหรับทุกคน</h1>
+      <p>ระบบจัดการเว็บไซต์ CWIE</p>
+    </div>
+    <form id="admin-login-form" class="login-form">
+      <span class="login-eyebrow">สำหรับผู้ดูแลระบบ</span>
+      <h2 id="login-title">เข้าสู่ระบบ</h2>
+      <p class="login-intro">จัดการข่าว กิจกรรม และเอกสารของเว็บไซต์</p>
+      <label for="login-account">ชื่อผู้ใช้หรืออีเมล</label>
+      <input id="login-account" name="username" autocomplete="username" placeholder="กรอกชื่อผู้ใช้หรืออีเมล" required>
+      <label for="login-password">รหัสผ่าน</label>
+      <div class="login-password-wrap">
+        <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="กรอกรหัสผ่าน" required>
+        <button type="button" id="login-password-toggle" aria-controls="login-password" aria-pressed="false">แสดง</button>
+      </div>
+      <button class="login-submit" type="submit">ทดลองเข้าแดชบอร์ด <span aria-hidden="true">→</span></button>
+      <p class="login-notice">หน้าล็อกอินต้นแบบ ยังไม่ตรวจสอบบัญชีจริง<br>กรุณาใช้ข้อมูลสมมุติในการทดลอง</p>
+    </form>
+  </div>
+</section>
+
   <div class="shell">
     <aside class="sidebar">
       <div class="brand">
@@ -832,5 +883,26 @@
     window.addEventListener('hashchange', showAdminView);
     showAdminView();
   </script>
+
+<script>
+(function () {
+  const password = document.getElementById('login-password');
+  const toggle = document.getElementById('login-password-toggle');
+  toggle.addEventListener('click', function () {
+    const show = password.type === 'password';
+    password.type = show ? 'text' : 'password';
+    toggle.textContent = show ? 'ซ่อน' : 'แสดง';
+    toggle.setAttribute('aria-pressed', String(show));
+  });
+  document.getElementById('admin-login-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    password.value = '';
+    document.getElementById('admin-login').hidden = true;
+    document.body.classList.add('admin-demo-open');
+    const heading = document.querySelector('.shell h1');
+    if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
+  });
+})();
+</script>
 </body>
 </html>
