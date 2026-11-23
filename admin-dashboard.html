@@ -306,20 +306,338 @@ body:not(.admin-demo-open) > .shell { display:none; }
 @media(max-width:720px) { .login-layout { grid-template-columns:1fr; gap:36px; margin:32px auto; max-width:410px; } .login-identity h1 { display:none; } .login-identity { padding-left:20px; } .login-identity img { width:36px; height:45px; margin:0; } .login-identity p { margin:6px 0; font-size:14px; } }
 @media(prefers-reduced-motion:reduce) { .login-submit { transition:none; } }
 </style>
+
+<style id="admin-editorial-refresh">
+  .shell { background:#faf9f6; }
+  .shell .sidebar {
+    background:#30213f; color:#f6f0fa; padding:30px 20px;
+    border-right:0;
+  }
+  .shell .brand { gap:12px; padding:0 10px 26px; border-bottom:1px solid #ffffff20; }
+  .shell .brand strong { font-size:19px; letter-spacing:.02em; }
+  .shell .brand span { color:#cdbfd7; font-size:12px; }
+  .shell .sidebar nav { display:flex; flex-direction:column; gap:4px; margin-top:24px; }
+  .shell .sidebar nav a {
+    display:flex; align-items:center; min-height:46px; padding:10px 14px;
+    border-radius:4px; color:#d8cde1; font-size:14px;
+    border:0; box-shadow:none; transition:background-color .18s,color .18s;
+  }
+  .shell .sidebar nav a:hover { background:#ffffff09; color:#fff; }
+  .shell .sidebar nav a[aria-current] {
+    color:#fff; background:#ffffff10; box-shadow:inset 2px 0 #c4996c;
+    font-weight:600;
+  }
+  .shell .sidebar .site-link {
+    color:#d8cde1; font-size:13px; padding:18px 10px 0;
+    border-top:1px solid #ffffff20;
+  }
+  .shell main { padding:44px clamp(24px,4vw,64px); max-width:1480px; width:100%; }
+  .shell .page-head { min-height:72px; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid #ded8e2; }
+  .shell h1 { font-size:clamp(26px,3vw,32px); font-weight:600; letter-spacing:-.025em; line-height:1.4; }
+  .shell .page-head p { font-size:13px; color:#786c80; margin-top:6px; }
+  .shell .panel { background:transparent; border:0; border-radius:0; box-shadow:none; padding:0; margin-bottom:32px; }
+  .shell .panel > h2 { font-size:16px; font-weight:600; margin:0 0 18px; }
+  .shell .overview-summary { overflow:hidden; }
+  .shell .overview-summary caption { padding:0 0 22px; font-size:16px; font-weight:600; }
+  .shell .overview-summary caption small { font-size:12px; color:#786c80; margin-top:6px; }
+  .shell .overview-summary thead { background:transparent; }
+  .shell .overview-summary thead th { padding:12px 20px; border-block:1px solid #ded8e2; font-size:13px; }
+  .shell .overview-summary tbody th,
+  .shell .overview-summary tbody td { padding:22px 20px; border-bottom:1px solid #e8e3eb; }
+  .shell .overview-summary tbody th { font-size:15px; font-weight:500; }
+  .shell .overview-summary td { font-size:25px; font-weight:500; }
+  .shell .overview-summary td a { border-radius:3px; text-decoration:none; }
+  .shell .overview-summary td a:hover { text-decoration:underline; background:#eee7f3; }
+  .shell .primary {
+    border-radius:5px; background:#512783; border-color:#512783;
+    padding:9px 18px; min-height:44px; font-size:14px; font-weight:500; box-shadow:none;
+  }
+  .shell .primary:hover { background:#432068; }
+  .shell .rows { border-top:1px solid #ded8e2; }
+  .shell .rows > li { padding:18px 4px; border-bottom:1px solid #e8e3eb; }
+  .shell .row-title { font-size:15px; font-weight:500; }
+  .shell .status { font-size:12px; font-weight:500; padding:3px 8px; border-radius:3px; }
+  .shell .row-action,.shell .preview-button { border-radius:4px; font-size:13px; min-height:44px; }
+  .shell .status-filters { margin:0 0 20px; gap:24px; }
+  .shell .mock-form { max-width:800px; }
+  .shell .mock-form label { font-size:14px; }
+  .shell .mock-form :is(input,textarea,select) {
+    border-radius:5px; background:#fff; border-color:#d9d1df;
+    min-height:44px; padding:10px 12px;
+  }
+  .shell .mock-form :is(input,textarea,select):focus { border-color:#765291; }
+  @media(max-width:640px) {
+    .shell .sidebar { padding:18px 16px; }
+    .shell .brand { padding:0 0 16px; }
+    .shell .sidebar nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:14px; }
+    .shell main { padding:28px 20px; }
+    .shell .page-head { margin-bottom:24px; padding-bottom:18px; }
+    .shell .overview-summary thead th,
+    .shell .overview-summary tbody th,
+    .shell .overview-summary tbody td { padding:16px 8px; }
+    .shell .overview-summary tbody th { font-size:13px; }
+    .shell .overview-summary td { font-size:22px; }
+  }
+  @media(prefers-reduced-motion:reduce) { .shell .sidebar nav a { transition:none; } }
+</style>
+
+<style id="admin-summary-actions">
+  .shell .overview-content-list { margin:0; padding:0; list-style:none; border-top:1px solid var(--line); }
+  .shell .overview-content-list > li {
+    display:grid; grid-template-columns:minmax(180px,1fr) minmax(260px,1.2fr) auto;
+    align-items:center; gap:24px; padding:24px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .shell .overview-content-list h3 { margin:0; font-size:16px; font-weight:500; }
+  .shell .overview-counts { display:flex; align-items:center; gap:28px; font-size:14px; }
+  .shell .overview-counts > span { display:inline-flex; min-height:44px; align-items:center; }
+  .shell .overview-counts [data-draft] { color:#866000; }
+  .shell .overview-counts [data-published] { color:#21603d; }
+  .shell .overview-counts .summary-empty { color:var(--muted); }
+  .shell .overview-counts a,
+  .shell .overview-all { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; }
+  .shell .overview-counts a:hover,
+  .shell .overview-counts a:focus-visible,
+  .shell .overview-all:hover,
+  .shell .overview-all:focus-visible { text-decoration:underline; text-underline-offset:4px; }
+  .shell .overview-all { gap:10px; font-size:13px; color:var(--purple); white-space:nowrap; }
+  @media(max-width:800px) {
+    .shell .overview-content-list > li { grid-template-columns:minmax(0,1fr) auto; gap:6px 16px; padding:20px 0; }
+    .shell .overview-content-list h3 { font-size:15px; }
+    .shell .overview-counts { grid-row:2; grid-column:1 / -1; gap:24px; font-size:13px; }
+    .shell .overview-all { grid-column:2; grid-row:1; }
+  }
+</style>
+<style>
+  #admin-logout { display:block; text-align:left; border:0; background:transparent; color:#d8cde1; font:inherit; font-size:13px; min-height:44px; padding:10px; cursor:pointer; }
+  #admin-logout:hover { color:#fff; text-decoration:underline; text-underline-offset:4px; }
+</style>
+
+<style id="admin-overview-dashboard">
+  .shell .dashboard-totals { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-block:1px solid var(--line); margin-bottom:40px; }
+  .shell .dashboard-totals article { padding:24px 28px; min-width:0; }
+  .shell .dashboard-totals article:first-child { padding-left:0; }
+  .shell .dashboard-totals article + article { border-left:1px solid var(--line); }
+  .shell .dashboard-totals h2 { font-size:15px; font-weight:500; margin:0; }
+  .shell .dashboard-total { font-size:13px; color:var(--muted); margin:16px 0 10px; }
+  .shell .dashboard-total strong { font-size:42px; line-height:1; color:var(--ink); font-weight:600; margin-right:6px; }
+  .shell .dashboard-status { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:12px; margin:0 0 14px; }
+  .shell .dashboard-status [data-draft], .shell .dashboard-event-draft { color:#866000; }
+  .shell .dashboard-status [data-published], .shell .dashboard-event-published { color:#21603d; }
+  .shell .dashboard-totals a { display:inline-flex; align-items:center; min-height:44px; color:var(--purple); font-size:13px; text-decoration:none; }
+  .shell .dashboard-totals a:hover { text-decoration:underline; text-underline-offset:4px; }
+  .shell .dashboard-work { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:40px; }
+  .shell .dashboard-work h2 { font-size:17px; font-weight:600; margin:0 0 18px; }
+  .shell .dashboard-work-list { list-style:none; padding:0; margin:0; border-top:1px solid var(--line); }
+  .shell .dashboard-work-list li { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .shell .dashboard-work-list li > div { min-width:0; }
+  .shell .dashboard-work-list strong { display:block; font-size:14px; font-weight:500; overflow-wrap:anywhere; }
+  .shell .dashboard-work-list small { display:block; margin-top:5px; font-size:12px; }
+  .shell #dashboard-drafts small { color:var(--muted); }
+  .shell .dashboard-work-list button { flex-shrink:0; min-height:44px; }
+  .shell .dashboard-event-title { display:block; text-align:left; padding:4px 0; border:0; background:transparent; color:var(--ink); font:inherit; font-size:14px; font-weight:500; overflow-wrap:anywhere; }
+  .shell .dashboard-event-title:hover { color:var(--purple); text-decoration:underline; }
+  .shell .dashboard-work-list time { display:block; color:var(--muted); font-size:12px; }
+  .shell .dashboard-empty { color:var(--muted); font-size:14px; }
+  @media(max-width:1000px) { .shell .dashboard-work { grid-template-columns:1fr; gap:32px; } .shell .dashboard-totals article { padding:20px 16px; } }
+  @media(max-width:600px) {
+    .shell .dashboard-totals { grid-template-columns:1fr; margin-bottom:32px; }
+    .shell .dashboard-totals article, .shell .dashboard-totals article:first-child { padding:20px 0; }
+    .shell .dashboard-totals article + article { border-left:0; border-top:1px solid var(--line); }
+    .shell .dashboard-total strong { font-size:36px; }
+  }
+</style>
+
+<style id="admin-dashboard-polish">
+  .shell #overview { max-width:1320px; padding-top:28px; }
+  .shell #overview .page-head { margin-bottom:18px; border-bottom:0; padding-bottom:0; min-height:34px; }
+  .shell #overview h1 { font-size:24px; font-weight:600; letter-spacing:-.02em; }
+  .shell .dashboard-totals { border:0; gap:0; margin-bottom:48px; }
+  .shell .dashboard-totals article {
+    position:relative; padding:4px 28px 6px;
+    border:0; background:none;
+  }
+  .shell .dashboard-totals article:first-child { padding-left:0; }
+  .shell .dashboard-totals article + article { border-left:1px solid #e2dbe6; }
+  .shell .dashboard-totals h2 { font-size:14px; color:var(--muted); font-weight:400; }
+  .shell .dashboard-total { margin:20px 0 14px; font-size:12px; }
+  .shell .dashboard-total strong { font-size:40px; font-weight:500; letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
+  .shell .dashboard-status { gap:6px 14px; margin-bottom:6px; font-size:12px; }
+  .shell .dashboard-totals a { font-size:13px; min-height:44px; }
+  .shell .dashboard-work { border-top:1px solid #d9d0df; padding-top:28px; gap:36px; }
+  .shell .dashboard-work > section + section { border-left:1px solid #e2dbe6; padding-left:32px; }
+  .shell .dashboard-work h2 { font-size:16px; font-weight:600; margin-bottom:20px; }
+  .shell .dashboard-work-list { border-top:0; }
+  .shell .dashboard-work-list li { padding:16px 0; gap:20px; border-bottom-color:#e8e2eb; }
+  .shell .dashboard-work-list li:first-child { padding-top:0; }
+  .shell .dashboard-work-list strong { font-size:14px; line-height:1.65; font-weight:500; }
+  .shell .dashboard-work-list small { font-size:12px; margin-top:4px; line-height:1.6; }
+  .shell .dashboard-work-list .row-action {
+    color:var(--purple); padding:8px 0 8px 12px; border:0; background:transparent;
+    border-radius:0; font-size:13px;
+  }
+  .shell .dashboard-work-list .row-action:hover { background:none; text-decoration:underline; text-underline-offset:4px; }
+  .shell .dashboard-event-title { font-size:14px; line-height:1.65; font-weight:500; }
+  .shell .dashboard-work-list time { color:var(--gold); font-size:12px; }
+  .shell .dashboard-event-draft,.shell .dashboard-event-published { font-weight:400; }
+  .shell .dashboard-empty { line-height:1.7; padding-block:16px; }
+  @media(min-width:641px) {
+    .shell .sidebar { padding-top:32px; }
+    .shell .sidebar nav { gap:6px; }
+    .shell .sidebar nav a { border-radius:0; }
+  }
+  @media(max-width:1000px) {
+    .shell .dashboard-work > section + section { border-left:0; padding-left:0; padding-top:8px; }
+    .shell .dashboard-totals article { padding-inline:18px; }
+  }
+  @media(max-width:600px) {
+    .shell .dashboard-totals { margin-bottom:28px; }
+    .shell .dashboard-totals article,.shell .dashboard-totals article:first-child {
+      display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px 16px; padding:18px 0;
+    }
+    .shell .dashboard-totals article + article { border-left:0; border-top:1px solid #e2dbe6; }
+    .shell .dashboard-totals h2 { align-self:center; }
+    .shell .dashboard-total { grid-column:2; grid-row:1 / span 2; margin:0; align-self:center; }
+    .shell .dashboard-total strong { font-size:32px; }
+    .shell .dashboard-status { grid-column:1; margin:0; }
+    .shell .dashboard-totals a { grid-column:1 / -1; }
+    .shell .dashboard-work { padding-top:24px; gap:28px; }
+    .shell #overview h1 { font-size:22px; }
+  }
+</style>
+
+<style id="admin-overview-section-colors">
+  .shell #overview .dashboard-totals {
+    background:#F0EAF5; border:1px solid #DDD2E6; border-radius:8px;
+    padding:24px; margin-bottom:24px; gap:0;
+  }
+  .shell #overview .dashboard-totals article,
+  .shell #overview .dashboard-totals article:first-child { padding:0 24px; background:transparent; }
+  .shell #overview .dashboard-totals article:first-child { padding-left:0; }
+  .shell #overview .dashboard-totals article:last-child { padding-right:0; }
+  .shell #overview .dashboard-totals article + article { border-left:1px solid #DDD2E6; }
+  .shell #overview .dashboard-work { gap:24px; padding-top:0; border-top:0; align-items:start; }
+  .shell #overview .dashboard-work > section {
+    padding:24px; min-width:0; border:1px solid #E7DCC7;
+    border-radius:8px; background:#FBF5E8; box-shadow:none;
+  }
+  .shell #overview .dashboard-work > section + section {
+    padding:24px; border:1px solid #E3DCE8; background:#FFFDFC;
+  }
+  .shell #overview .dashboard-work h2 { margin-bottom:20px; color:var(--ink); }
+  .shell #overview #dashboard-drafts li { border-bottom-color:#E7DCC7; }
+  .shell #overview #dashboard-events li { border-bottom-color:#E3DCE8; }
+  .shell #overview .dashboard-work-list li:last-child { border-bottom:0; padding-bottom:0; }
+  .shell #overview .dashboard-work-list strong,
+  .shell #overview .dashboard-event-title { overflow-wrap:anywhere; }
+  @media(max-width:1000px) {
+    .shell #overview .dashboard-totals article { padding-inline:16px; }
+  }
+  @media(max-width:600px) {
+    .shell #overview .dashboard-totals { padding:20px; }
+    .shell #overview .dashboard-totals article,
+    .shell #overview .dashboard-totals article:first-child,
+    .shell #overview .dashboard-totals article:last-child { padding:20px 0; }
+    .shell #overview .dashboard-totals article:first-child { padding-top:0; }
+    .shell #overview .dashboard-totals article:last-child { padding-bottom:0; }
+    .shell #overview .dashboard-totals article + article { border-left:0; border-top:1px solid #DDD2E6; }
+    .shell #overview .dashboard-work > section,
+    .shell #overview .dashboard-work > section + section { padding:20px; }
+  }
+</style>
+
+<style id="admin-overview-compact">
+  .shell #overview { max-width:1120px; padding-top:24px; padding-inline:32px; }
+  .shell #overview .page-head { min-height:30px; margin-bottom:14px; }
+  .shell #overview .dashboard-totals { padding:18px 20px; margin-bottom:20px; }
+  .shell #overview .dashboard-totals article,
+  .shell #overview .dashboard-totals article:first-child { padding-block:0; }
+  .shell #overview .dashboard-total { margin:12px 0 10px; }
+  .shell #overview .dashboard-total strong { font-size:36px; }
+  .shell #overview .dashboard-status { margin-bottom:0; }
+  .shell #overview .dashboard-work { gap:20px; }
+  .shell #overview .dashboard-work > section,
+  .shell #overview .dashboard-work > section + section { padding:20px; }
+  .shell #overview .dashboard-work h2 { margin-bottom:14px; }
+  .shell #overview .dashboard-work-list li { padding-block:12px; gap:12px; }
+  .shell #overview .dashboard-work-list li:first-child { padding-top:0; }
+  .shell #overview .dashboard-work-list li:last-child { padding-bottom:0; }
+  @media(max-width:600px) {
+    .shell #overview { padding:20px; }
+    .shell #overview .dashboard-totals { padding:18px; }
+    .shell #overview .dashboard-totals article,
+    .shell #overview .dashboard-totals article:first-child,
+    .shell #overview .dashboard-totals article:last-child { padding-block:14px; }
+    .shell #overview .dashboard-totals article:first-child { padding-top:0; }
+    .shell #overview .dashboard-totals article:last-child { padding-bottom:0; }
+    .shell #overview .dashboard-total { margin:0; }
+    .shell #overview .dashboard-work > section,
+    .shell #overview .dashboard-work > section + section { padding:18px; }
+  }
+</style>
+
+<style id="admin-login-refresh">
+  #admin-login {
+    min-height:100svh; padding:48px 24px; display:grid; align-items:center;
+    background:#F8F6F2;
+  }
+  #admin-login[hidden] { display:none; }
+  #admin-login .login-layout {
+    display:block; width:min(100%,380px); max-width:380px;
+    margin:0 auto; border:0; border-radius:0; overflow:visible;
+    background:transparent;
+  }
+  #admin-login .login-identity {
+    display:flex; flex-direction:column; align-items:center;
+    padding:0; border:0; background:transparent; text-align:center;
+  }
+  #admin-login .login-identity img { width:51px; height:64px; object-fit:contain; margin:0 0 18px; }
+  #admin-login .login-identity h1 {
+    display:block; margin:0; color:var(--ink); font-size:20px;
+    font-weight:600; line-height:1.5; letter-spacing:-.015em;
+  }
+  #admin-login .login-identity p,
+  #admin-login .login-identity p:last-child {
+    display:block; width:auto; margin:6px 0 0; padding:0; border:0;
+    font-size:13px; color:var(--muted); line-height:1.6;
+  }
+  #admin-login .login-form { max-width:none; width:100%; padding:0; margin-top:32px; }
+  #admin-login .login-form h2 { font-size:24px; font-weight:600; margin:0 0 24px; line-height:1.4; }
+  #admin-login .login-form label { display:block; font-size:14px; font-weight:500; margin:18px 0 8px; }
+  #admin-login .login-form input {
+    width:100%; min-height:48px; font:inherit; font-size:15px;
+    border:1px solid #d9d0e1; border-radius:5px; background:#fff;
+    padding:11px 13px; color:var(--ink);
+  }
+  #admin-login .login-form input::placeholder { color:#887d90; font-size:14px; }
+  #admin-login .login-password-wrap input { padding-right:72px; }
+  #admin-login #login-password-toggle { top:2px; right:4px; min-width:60px; min-height:44px; }
+  #admin-login .login-submit {
+    display:flex; justify-content:center; align-items:center; width:100%;
+    min-height:48px; border:0; border-radius:5px; background:var(--purple);
+    color:#fff; font:inherit; font-size:15px; font-weight:500;
+    margin-top:24px; padding:12px 16px; box-shadow:none;
+    transition:background-color 180ms ease;
+  }
+  #admin-login .login-submit:hover { background:#432068; box-shadow:none; }
+  #admin-login .login-notice {
+    border:0; padding:0; margin:16px 0 0; font-size:12px;
+    color:var(--muted); text-align:center; line-height:1.7;
+  }
+  @media(max-height:700px) { #admin-login { align-items:start; padding-top:28px; padding-bottom:28px; } #admin-login .login-form { margin-top:24px; } }
+  @media(prefers-reduced-motion:reduce) { #admin-login .login-submit { transition:none; } }
+</style>
 </head>
 <body>
 <section id="admin-login" aria-labelledby="login-title">
   <div class="login-layout">
-    <div class="login-identity">
-      <img src="./assets/up-emblem.png" alt="ตรามหาวิทยาลัยพะเยา" width="62" height="78">
+    <header class="login-identity">
+      <img src="./assets/up-emblem.png" alt="ตรามหาวิทยาลัยพะเยา" width="51" height="64">
+      <h1>ระบบจัดการเว็บไซต์ CWIE</h1>
       <p>มหาวิทยาลัยพะเยา</p>
-      <h1>ดูแลข่าวสาร<br>ให้พร้อมสำหรับทุกคน</h1>
-      <p>ระบบจัดการเว็บไซต์ CWIE</p>
-    </div>
+    </header>
     <form id="admin-login-form" class="login-form">
-      <span class="login-eyebrow">สำหรับผู้ดูแลระบบ</span>
       <h2 id="login-title">เข้าสู่ระบบ</h2>
-      <p class="login-intro">จัดการข่าว กิจกรรม และเอกสารของเว็บไซต์</p>
       <label for="login-account">ชื่อผู้ใช้หรืออีเมล</label>
       <input id="login-account" name="username" autocomplete="username" placeholder="กรอกชื่อผู้ใช้หรืออีเมล" required>
       <label for="login-password">รหัสผ่าน</label>
@@ -327,8 +645,8 @@ body:not(.admin-demo-open) > .shell { display:none; }
         <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="กรอกรหัสผ่าน" required>
         <button type="button" id="login-password-toggle" aria-controls="login-password" aria-pressed="false">แสดง</button>
       </div>
-      <button class="login-submit" type="submit">ทดลองเข้าแดชบอร์ด <span aria-hidden="true">→</span></button>
-      <p class="login-notice">หน้าล็อกอินต้นแบบ ยังไม่ตรวจสอบบัญชีจริง<br>กรุณาใช้ข้อมูลสมมุติในการทดลอง</p>
+      <button class="login-submit" type="submit">ทดลองเข้าใช้งาน</button>
+      <p class="login-notice">โหมดทดลอง · ใช้ข้อมูลสมมุติ</p>
     </form>
   </div>
 </section>
@@ -348,6 +666,7 @@ body:not(.admin-demo-open) > .shell { display:none; }
         <a href="#statistics">สถิติ</a>
       </nav>
       <a class="site-link" href="./cwie-v1.3-minimal.html">ดูเว็บไซต์ CWIE <span aria-hidden="true"> ↗</span></a>
+      <button id="admin-logout" type="button">ออกจากระบบ</button>
     </aside>
 
     <main id="overview">
@@ -357,19 +676,15 @@ body:not(.admin-demo-open) > .shell { display:none; }
         </div>
       </header>
 
-      <section class="panel overview-summary" aria-label="ภาพรวมเนื้อหา">
-        <table>
-          <caption>สรุปการเผยแพร่<small>กดตัวเลขเพื่อดูรายการ</small></caption>
-          <thead>
-            <tr><th scope="col">เนื้อหา</th><th scope="col" data-draft>ฉบับร่าง</th><th scope="col" data-published>เผยแพร่แล้ว</th></tr>
-          </thead>
-          <tbody>
-            <tr data-summary="news"><th scope="row">ข่าวประชาสัมพันธ์</th><td data-draft></td><td data-published></td></tr>
-            <tr data-summary="events"><th scope="row">กิจกรรม</th><td data-draft></td><td data-published></td></tr>
-            <tr data-summary="documents"><th scope="row">เอกสาร</th><td data-draft></td><td data-published></td></tr>
-          </tbody>
-        </table>
+      <section class="dashboard-totals" aria-label="จำนวนเนื้อหาทั้งหมด">
+        <article data-summary="news"><h2>ข่าวประชาสัมพันธ์</h2><p class="dashboard-total"><strong data-total>0</strong> รายการ</p><p class="dashboard-status"><span data-draft></span><span data-published></span></p><a href="#news">จัดการข่าว →</a></article>
+        <article data-summary="events"><h2>กิจกรรม</h2><p class="dashboard-total"><strong data-total>0</strong> รายการ</p><p class="dashboard-status"><span data-draft></span><span data-published></span></p><a href="#events">จัดการกิจกรรม →</a></article>
+        <article data-summary="documents"><h2>เอกสาร</h2><p class="dashboard-total"><strong data-total>0</strong> รายการ</p><p class="dashboard-status"><span data-draft></span><span data-published></span></p><a href="#documents">จัดการเอกสาร →</a></article>
       </section>
+      <div class="dashboard-work">
+        <section aria-labelledby="dashboard-drafts-heading"><h2 id="dashboard-drafts-heading">ฉบับร่าง</h2><ul id="dashboard-drafts" class="dashboard-work-list"></ul></section>
+        <section aria-labelledby="dashboard-events-heading"><h2 id="dashboard-events-heading">กิจกรรมใกล้ถึง</h2><ul id="dashboard-events" class="dashboard-work-list"></ul></section>
+      </div>
     </main>
 
     <main id="news" hidden>
@@ -589,6 +904,8 @@ body:not(.admin-demo-open) > .shell { display:none; }
     const names = { news: 'ข่าว', events: 'กิจกรรม', documents: 'เอกสาร' };
     const titleField = { news: 'title-th', events: 'event-name', documents: 'document-name' };
     const records = {};
+    const recentEdits = new WeakMap();
+    let editSequence = 0;
     const categorySelect = preview.querySelector('[name="category"]');
     const categories = Array.from(categorySelect.options).slice(1).map(option => ({ name: option.value }));
     const categoryList = document.getElementById('category-list');
@@ -740,18 +1057,72 @@ body:not(.admin-demo-open) > .shell { display:none; }
         list.append(empty);
       }
       list.nextElementSibling.textContent = message;
-      const draftCount = records[type].filter(record => record.status === 'draft').length;
-      const publishedCount = records[type].length - draftCount;
-      const summary = document.querySelector('[data-summary="' + type + '"]');
-      for (const [status, count] of [['draft', draftCount], ['published', publishedCount]]) {
-        const cell = summary.querySelector('[data-' + status + ']');
-        cell.textContent = count;
-        if (count === 0) continue;
-        const link = document.createElement('a');
-        link.href = '#' + type + '/' + status;
-        link.textContent = count;
-        link.setAttribute('aria-label', names[type] + ' ' + statusLabels[status] + ' ' + count + ' รายการ');
-        cell.replaceChildren(link);
+      renderDashboard();
+    }
+
+    function renderDashboard() {
+      const drafts = [];
+      for (const type of Object.keys(names)) {
+        const items = records[type] || [];
+        const summary = document.querySelector('[data-summary="' + type + '"]');
+        const draftCount = items.filter(record => record.status === 'draft').length;
+        summary.querySelector('[data-total]').textContent = items.length;
+        summary.querySelector('[data-draft]').textContent = 'ฉบับร่าง ' + draftCount;
+        summary.querySelector('[data-published]').textContent = 'เผยแพร่แล้ว ' + (items.length - draftCount);
+        items.forEach(record => {
+          if (record.status === 'draft') drafts.push({type, record});
+        });
+      }
+      drafts.sort((a, b) => (recentEdits.get(b.record) || 0) - (recentEdits.get(a.record) || 0));
+      const draftList = document.getElementById('dashboard-drafts');
+      draftList.replaceChildren();
+      for (const {type, record} of drafts.slice(0, 5)) {
+        const row = document.createElement('li');
+        const text = document.createElement('div');
+        const title = document.createElement('strong');
+        title.textContent = record.fields[titleField[type]] || 'ยังไม่มีชื่อ';
+        const detail = document.createElement('small');
+        detail.textContent = names[type];
+        text.append(title, detail);
+        row.append(text, action('แก้ไข', () => openEditor(type, record)));
+        draftList.append(row);
+      }
+      if (!drafts.length) {
+        const empty = document.createElement('li');
+        empty.className = 'dashboard-empty';
+        empty.textContent = 'ยังไม่มีฉบับร่าง';
+        draftList.append(empty);
+      }
+      const today = new Intl.DateTimeFormat('en-CA', {
+        timeZone:'Asia/Bangkok', year:'numeric', month:'2-digit', day:'2-digit'
+      }).formatToParts(new Date());
+      const part = name => today.find(item => item.type === name).value;
+      const dateKey = part('year') + '-' + part('month') + '-' + part('day');
+      const upcoming = (records.events || []).filter(record =>
+        /^\d{4}-\d{2}-\d{2}$/.test(record.fields['event-date'] || '') &&
+        record.fields['event-date'] >= dateKey
+      ).sort((a,b) => a.fields['event-date'].localeCompare(b.fields['event-date'])).slice(0,3);
+      const eventList = document.getElementById('dashboard-events');
+      eventList.replaceChildren();
+      for (const record of upcoming) {
+        const row = document.createElement('li');
+        const content = document.createElement('div');
+        const date = document.createElement('time');
+        date.dateTime = record.fields['event-date'];
+        date.textContent = new Intl.DateTimeFormat('th-TH', {day:'numeric', month:'short', year:'numeric', timeZone:'Asia/Bangkok'}).format(new Date(date.dateTime + 'T12:00:00+07:00'));
+        const button = action(record.fields['event-name'] || 'ยังไม่มีชื่อ', () => openEditor('events', record), 'dashboard-event-title');
+        const status = document.createElement('small');
+        status.className = record.status === 'draft' ? 'dashboard-event-draft' : 'dashboard-event-published';
+        status.textContent = statusLabels[record.status];
+        content.append(date, button, status);
+        row.append(content);
+        eventList.append(row);
+      }
+      if (!upcoming.length) {
+        const empty = document.createElement('li');
+        empty.className = 'dashboard-empty';
+        empty.textContent = 'ยังไม่มีกิจกรรมใกล้ถึง';
+        eventList.append(empty);
       }
     }
 
@@ -874,6 +1245,7 @@ body:not(.admin-demo-open) > .shell { display:none; }
         const record = { fields, status, file };
         if (selected) Object.assign(selected, record);
         else records[kind].unshift(record);
+        recentEdits.set(selected || record, ++editSequence);
         dialog.close();
         render(kind, status === 'draft' ? 'บันทึกร่างในโหมดทดลองแล้ว' : 'เผยแพร่ในโหมดทดลองแล้ว');
       });
@@ -886,6 +1258,39 @@ body:not(.admin-demo-open) > .shell { display:none; }
 
 <script>
 (function () {
+  const loginStateKey = 'cwie-admin-demo-open';
+  const lastViewKey = 'cwie-admin-demo-view';
+  function remember(key, value) {
+    try { localStorage.setItem(key, value); } catch (error) {}
+  }
+  function recalled(key) {
+    try { return localStorage.getItem(key); } catch (error) { return null; }
+  }
+  function openDashboard() {
+    document.getElementById('admin-login').hidden = true;
+    document.body.classList.add('admin-demo-open');
+  }
+  if (recalled(loginStateKey) === 'true') {
+    const previousView = recalled(lastViewKey);
+    if (!location.hash && previousView && /^#(?:overview|news|events|documents|contact-settings|statistics)(?:\/(?:all|draft|published))?$/.test(previousView)) {
+      location.hash = previousView;
+    }
+    openDashboard();
+  }
+  window.addEventListener('hashchange', function () {
+    if (document.body.classList.contains('admin-demo-open')) remember(lastViewKey, location.hash);
+  });
+  document.getElementById('admin-logout').addEventListener('click', function () {
+    try {
+      localStorage.removeItem(loginStateKey);
+      localStorage.removeItem(lastViewKey);
+    } catch (error) {}
+    document.body.classList.remove('admin-demo-open');
+    document.getElementById('admin-login').hidden = false;
+    document.getElementById('admin-login-form').reset();
+    location.hash = '';
+    document.getElementById('login-account').focus();
+  });
   const password = document.getElementById('login-password');
   const toggle = document.getElementById('login-password-toggle');
   toggle.addEventListener('click', function () {
@@ -897,8 +1302,9 @@ body:not(.admin-demo-open) > .shell { display:none; }
   document.getElementById('admin-login-form').addEventListener('submit', function (event) {
     event.preventDefault();
     password.value = '';
-    document.getElementById('admin-login').hidden = true;
-    document.body.classList.add('admin-demo-open');
+    remember(loginStateKey, 'true');
+    remember(lastViewKey, location.hash);
+    openDashboard();
     const heading = document.querySelector('.shell h1');
     if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
   });
