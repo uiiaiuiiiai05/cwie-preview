@@ -3190,6 +3190,128 @@
       }
     }
   </style>
+<style>
+    #steps .journey-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 600px) { #steps .journey-grid { grid-template-columns: 1fr; } }
+  </style>
+<style>
+    #steps .journey-grid {
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0;
+      border:1px solid var(--c-blue-border); border-radius:16px;
+      background:var(--c-card); overflow:hidden;
+    }
+    #steps .journey-grid > li {
+      display:flex; flex-direction:column; min-width:0; min-height:280px;
+      padding:30px 32px; border:0; border-radius:0;
+      background:transparent; box-shadow:none; transform:none;
+    }
+    #steps .journey-grid > li + li { border-left:1px solid var(--c-blue-border); }
+    #steps .journey-grid > li:hover {
+      transform:none; box-shadow:none; background:transparent;
+    }
+    #steps .student-assessment-header,
+    #steps .student-preparation-header {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:20px; height:66px; flex-shrink:0;
+    }
+    #steps .journey-number {
+      font-size:38px; line-height:1; color:#825911;
+    }
+    #steps .journey-number::after { display:none; }
+    #steps .student-plo-brand { display:flex; align-items:center; }
+    #steps .student-plo-logo {
+      display:block; width:106px; height:64px; object-fit:contain;
+    }
+    #steps .journey-grid h3 {
+      font-size:clamp(19px,1.8vw,24px); line-height:1.5;
+      margin:24px 0 20px; max-width:28ch;
+    }
+    #steps .journey-grid a {
+      width:fit-content; max-width:100%; margin-top:auto; padding-top:12px;
+      border:0; font-size:14px; line-height:1.6; min-height:44px;
+    }
+    #steps .journey-grid a:focus-visible { outline-offset:4px; }
+    @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+      #steps .journey-grid { overflow:visible; }
+      #steps .journey-grid > li {
+        position:relative;
+        transition:transform 350ms cubic-bezier(.22,1,.36,1), box-shadow 350ms ease, background-color 350ms ease;
+      }
+      #steps .journey-grid > li:hover {
+        z-index:1; transform:translateY(-10px);
+        background:var(--c-card);
+        box-shadow:0 20px 38px rgba(81,39,131,.18), 0 6px 14px rgba(81,39,131,.08);
+      }
+      #steps .journey-grid > li:first-child { border-radius:16px 0 0 16px; }
+      #steps .journey-grid > li:last-child { border-radius:0 16px 16px 0; }
+    }
+    @media (max-width:600px) and (hover:hover) {
+      #steps .journey-grid > li:first-child { border-radius:16px 16px 0 0; }
+      #steps .journey-grid > li:last-child { border-radius:0 0 16px 16px; }
+    }
+    @media(max-width:600px) {
+      #steps .journey-grid { grid-template-columns:1fr; }
+      #steps .journey-grid > li { min-height:240px; padding:24px; }
+      #steps .journey-grid > li + li {
+        border-left:0; border-top:1px solid var(--c-blue-border);
+      }
+      #steps .journey-grid h3 { margin-top:20px; }
+      #steps .student-plo-logo { width:96px; height:58px; }
+    }
+  </style>
+
+  <style>
+    #steps .journey-grid > .student-assessment {
+      position:relative; isolation:isolate; overflow:hidden;
+    }
+    #steps .student-assessment > :not(.student-plo-brand) { position:relative; z-index:1; }
+    #steps .student-assessment .student-plo-brand {
+      position:absolute; z-index:0; pointer-events:none;
+      right:-8px; bottom:12px; width:290px; height:184px;
+      display:block; opacity:.14;
+      mask-image:linear-gradient(135deg,transparent 4%,#000 58%);
+      -webkit-mask-image:linear-gradient(135deg,transparent 4%,#000 58%);
+    }
+    #steps .student-assessment .student-plo-logo {
+      display:block; width:100%; height:100%; object-fit:contain;
+      filter:grayscale(1) sepia(1) saturate(3) hue-rotate(220deg);
+    }
+    @media (prefers-reduced-motion:no-preference) {
+      #steps .student-assessment .student-plo-brand {
+        transition:opacity 650ms ease,transform 650ms cubic-bezier(.22,1,.36,1);
+      }
+      #steps .student-assessment:hover .student-plo-brand {
+        opacity:.22; transform:translate(-3px,-3px) scale(1.025);
+      }
+    }
+    @media(max-width:600px) {
+      #steps .student-assessment .student-plo-brand {
+        width:225px; height:143px; right:0; bottom:12px;
+      }
+    }
+  </style>
+
+  <style>
+    #steps .journey-grid > .student-preparation {
+      position:relative; isolation:isolate; overflow:hidden;
+    }
+    #steps .student-preparation > :not(.student-login-art) { position:relative; z-index:1; }
+    #steps .student-login-art {
+      position:absolute; right:-8px; bottom:12px; z-index:0;
+      display:block; width:290px; height:184px;
+      color:var(--c-blue-hover); opacity:.14; pointer-events:none;
+      filter:grayscale(1) sepia(1) saturate(3) hue-rotate(220deg);
+    }
+    @media (prefers-reduced-motion:no-preference) {
+      #steps .student-login-arrow {
+        transition:transform 600ms cubic-bezier(.22,1,.36,1);
+      }
+      #steps .student-preparation:hover .student-login-arrow { transform:translateX(6px); }
+    }
+    @media(max-width:600px) {
+      #steps .student-login-art { width:225px; height:143px; right:0; bottom:12px; }
+    }
+  </style>
 </head>
 <body>
   <div class="site-intro" aria-hidden="true"><svg class="intro-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><path pathLength="100" d="M-100 505 C180 335 330 645 590 495 S1020 330 1540 520"></path><path pathLength="100" d="M-100 555 C190 395 340 700 610 545 S1050 380 1540 570"></path></svg><div class="intro-lockup"><div class="intro-mark"><span>C</span><span>W</span><span>I</span><span>E</span></div><div class="intro-university">มหาวิทยาลัยพะเยา</div></div></div>
@@ -3259,22 +3381,46 @@
     </section>
 
     <section id="steps" class="container home-section" aria-labelledby="steps-heading">
-      <div class="section-head"><p class="section-kicker">สำหรับนิสิต</p><h2 id="steps-heading" class="section-heading">4 ขั้นตอนการเข้าร่วม</h2><p class="sample-note">ขั้นตอนตัวอย่าง รอรายละเอียดจากมหาวิทยาลัย</p></div>
+      <div class="section-head"><h2 id="steps-heading" class="section-heading">สำหรับนิสิต CWIE</h2></div>
       <ol class="journey-grid">
-        <li><span class="journey-number">01</span><h3>ทำความรู้จัก CWIE</h3><p>อ่านภาพรวมและเตรียมความพร้อม</p><a href="#about">ดูข้อมูล CWIE <span aria-hidden="true">→</span></a></li>
-        <li><span class="journey-number">02</span><h3>ตรวจสอบเอกสาร</h3><p>ศึกษาระเบียบและประกาศที่เกี่ยวข้อง</p><a href="#documents">ดูรายการเอกสาร <span aria-hidden="true">→</span></a></li>
-        <li><span class="journey-number">03</span><h3>เข้าร่วมอบรม</h3><p>ติดตามวันอบรมและเตรียมตัวเข้าร่วม</p><a href="#training">ดูปฏิทินอบรม <span aria-hidden="true">→</span></a></li>
-        <li><span class="journey-number">04</span><h3>ประเมินตนเอง</h3><p>ทบทวนความพร้อมก่อนออกปฏิบัติงานสหกิจศึกษา</p><a href="https://plo.up.ac.th/main/#/student/practice">ทำแบบประเมิน <span aria-hidden="true">&#8599;</span></a></li>
+        <li class="student-assessment"><div class="student-plo-brand" aria-hidden="true"><img class="student-plo-logo" src="./assets/plo-logo.svg" alt="" width="300" height="190" loading="lazy"></div><div class="student-assessment-header"><span class="journey-number">01</span></div><h3>ประเมินสมรรถนะนิสิต CWIE</h3><a href="https://plo.up.ac.th/main/#/student/practice">ทำแบบประเมิน <span aria-hidden="true">&#8599;</span></a></li>
+        <li class="student-preparation">
+          <svg class="student-login-art" viewBox="0 0 240 180" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="student-login-ribbon" x1="28" y1="18" x2="211" y2="173" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00eed5"/><stop offset=".28" stop-color="#2bd3ef"/><stop offset=".6" stop-color="#8a0bff"/><stop offset="1" stop-color="#ae38ff"/>
+              </linearGradient>
+              <linearGradient id="student-login-fold" x1="210" y1="30" x2="50" y2="142" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#530dff"/><stop offset=".55" stop-color="#a100ff"/><stop offset="1" stop-color="#2a0056"/>
+              </linearGradient>
+            <linearGradient id="student-login-cyan" x1="32" y1="30" x2="63" y2="130" gradientUnits="userSpaceOnUse"><stop stop-color="#2bd3ef"/><stop offset="1" stop-color="#008cff"/></linearGradient>
+              <linearGradient id="student-login-green" x1="130" y1="20" x2="225" y2="100" gradientUnits="userSpaceOnUse"><stop stop-color="#00eed5"/><stop offset=".5" stop-color="#3dbbd7"/><stop offset="1" stop-color="#aa61da"/></linearGradient>
+              <mask id="student-login-breaks" maskUnits="userSpaceOnUse" x="0" y="0" width="240" height="180">
+                <rect width="240" height="180" fill="white"/>
+                <path d="M95 12l-9 29M204 115l15 18M108 156l8 18" stroke="black" stroke-width="5"/>
+              </mask>
+            </defs>
+            <g fill="url(#student-login-ribbon)" mask="url(#student-login-breaks)">
+              <!-- Open left edge accommodates the incoming login ribbon. -->
+              <path d="M66 17h134c22 0 35 13 35 35v58c0 22-13 35-35 35H67c-22 0-35-13-35-35v-9h19v8c0 12 5 17 17 17h131c12 0 17-5 17-17V53c0-12-5-17-17-17H68c-12 0-17 5-17 17v9H32V52c0-22 13-35 34-35Z"/>
+              <path fill="url(#student-login-cyan)" d="M66 17h23l-5 19H68c-12 0-17 5-17 17v9H32V52c0-22 13-35 34-35Zm-34 84h19v8c0 12 5 17 17 17h22c-8 13-18 19-23 19-22 0-35-13-35-35Z"/>
+              <path fill="url(#student-login-green)" d="M113 17h87c22 0 35 13 35 35v20c-12-5-19-13-19-24-1-8-6-12-17-12h-69c-8 0-13-7-17-19Z"/>
+              <!-- Folded band gives the frame the layered weight of the PLO mark. -->
+              <path fill="url(#student-login-fold)" d="M200 17c22 0 35 13 35 35v58c0 22-13 35-35 35h-43c8-12 22-19 38-19h4c12 0 17-5 17-17V53c0-20-5-29-16-36Z"/>
+              <!-- A restrained curling stem forms the monitor stand. -->
+              <path d="M120 143h21c-2 13-12 22-25 26h53c13 0 22-6 27-15 4 15-7 25-24 25H79c-10 0-17-5-20-13 13 5 25 5 36 1 17-5 25-13 25-24Z"/>
+              <path fill="url(#student-login-fold)" d="M120 143h21c-2 13-12 22-25 26H95c17-5 25-13 25-26Z"/>
+              <circle cx="157" cy="64" r="17"/>
+              <path d="M121 112c0-22 14-33 36-33s36 11 36 33h-17c0-11-6-18-19-18s-19 7-19 18Z"/>
+              <g class="student-login-arrow">
+                <!-- Broad ribbon with a curled tail and an unmistakable arrowhead. -->
+                <path d="M8 57c2 12 10 17 24 17h34V55l39 29c-14 7-27 17-39 30V94H31C12 94 3 79 8 57Z"/>
+                <path fill="url(#student-login-fold)" d="M8 57c2 12 10 17 24 17h34V55l39 29H32C18 84 9 75 8 57Z" opacity=".55"/>
+              </g>
+            </g>
+          </svg>
+          <div class="student-preparation-header"><span class="journey-number">02</span></div><h3>เตรียมความพร้อมนิสิต CWIE</h3><a href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">ดูชั่วโมงและกิจกรรมที่เข้าร่วม <span aria-hidden="true">&#8599;</span></a></li>
       </ol>
-      <div class="audience-section">
-        <div class="audience-card-frame">
-          <a class="audience-card" href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">
-            <strong>ตรวจสอบชั่วโมงกิจกรรม</strong>
-            <span>ดูชั่วโมงกิจกรรม ตรวจสอบโครงการที่เข้าร่วม และดูประวัติ</span>
-            <span class="audience-arrow" aria-hidden="true">&#8599;</span>
-          </a>
-        </div>
-      </div>
     </section>
 
     <section id="news" class="container home-section">
