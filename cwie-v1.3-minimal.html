@@ -2760,7 +2760,7 @@
     #calendar .calendar-choice[aria-pressed="true"]::before { background:currentColor; }
     #calendar .calendar-list-date {
       padding-inline-end:8px;
-      border-inline-end:1px solid var(--calendar-line);
+      border-inline-end:1px solid #c49a55;
       font-variant-numeric:tabular-nums;
       line-height:1.22;
     }
@@ -3312,6 +3312,40 @@
       #steps .student-login-art { width:225px; height:143px; right:0; bottom:12px; }
     }
   </style>
+
+<style id="cookie-demo-styles">
+  .cookie-demo-footer { padding-block:16px 24px; }
+  #cookie-demo-open { border:0; background:none; color:inherit; font:inherit; font-size:13px; text-decoration:underline; text-underline-offset:4px; min-height:44px; cursor:pointer; }
+  #cookie-demo-banner { position:fixed; z-index:10000; bottom:16px; left:16px; right:16px; max-width:1160px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:22px 24px; border:1px solid #ded4e6; border-radius:10px; background:#fff9f0; color:#352243; box-shadow:0 8px 32px #30213f20; }
+  #cookie-demo-banner[hidden] { display:none; }
+  #cookie-demo-banner h2 { font-size:18px; margin:0 0 6px; }
+  #cookie-demo-banner p { font-size:14px; margin:0; }
+  #cookie-demo-banner small { display:block; margin-top:6px; font-size:12px; color:#63576d; }
+  .cookie-demo-actions { display:flex; flex-wrap:wrap; gap:8px; flex-shrink:0; }
+  #cookie-demo-banner button,#cookie-demo-dialog button { min-height:44px; padding:9px 14px; border:1px solid #ded4e6; border-radius:5px; background:transparent; color:#512783; font:inherit; font-size:13px; cursor:pointer; }
+  #cookie-demo-banner .cookie-demo-primary,#cookie-demo-dialog .cookie-demo-primary { background:#512783; border-color:#512783; color:#fff9f0; }
+  #cookie-demo-dialog { width:min(560px,calc(100% - 32px)); max-height:85svh; padding:24px; border:1px solid #ded4e6; border-radius:10px; background:#fff9f0; color:#352243; }
+  #cookie-demo-dialog::backdrop { background:#21132f80; }
+  #cookie-demo-dialog header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  #cookie-demo-dialog h2 { font-size:19px; margin:0; }
+  #cookie-demo-dialog p { font-size:14px; line-height:1.7; margin:12px 0; }
+  #cookie-demo-dialog .cookie-demo-option { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; border-top:1px solid #ded4e6; }
+  #cookie-demo-dialog .cookie-demo-option p { margin:4px 0 0; font-size:13px; color:#63576d; }
+  #cookie-demo-dialog .cookie-demo-option span { white-space:nowrap; font-size:12px; color:#63576d; }
+  #cookie-demo-dialog input { width:24px; height:24px; flex-shrink:0; accent-color:#512783; }
+  #cookie-demo-dialog .cookie-demo-note { font-size:12px; color:#63576d; }
+  @media(max-width:900px) { #cookie-demo-banner { flex-direction:column; align-items:stretch; gap:16px; } }
+  @media(max-width:600px) { #cookie-demo-banner { padding:16px; bottom:8px; left:8px; right:8px; } .cookie-demo-actions { gap:6px; } #cookie-demo-dialog { padding:20px; } }
+</style>
+
+<style id="student-link-gold-hover">
+  #steps .journey-grid > li > a { transition:color 250ms ease; }
+  #steps .journey-grid > li > a:is(:hover,:focus-visible),
+  #steps .journey-grid > li > a:is(:hover,:focus-visible) span { color:#825911; }
+  @media(prefers-reduced-motion:reduce) {
+    #steps .journey-grid > li > a { transition:none; }
+  }
+</style>
 </head>
 <body>
   <div class="site-intro" aria-hidden="true"><svg class="intro-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><path pathLength="100" d="M-100 505 C180 335 330 645 590 495 S1020 330 1540 520"></path><path pathLength="100" d="M-100 555 C190 395 340 700 610 545 S1050 380 1540 570"></path></svg><div class="intro-lockup"><div class="intro-mark"><span>C</span><span>W</span><span>I</span><span>E</span></div><div class="intro-university">มหาวิทยาลัยพะเยา</div></div></div>
@@ -3376,14 +3410,14 @@
       <div class="section-wave section-wave--bottom" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none" focusable="false"><path class="wave-back" d="M0 34 C180 0 300 72 480 39 S780 10 960 38 S1260 74 1440 32 V80 H0 Z"></path><path class="wave-front" d="M0 52 C180 8 320 65 490 48 S790 19 970 51 S1270 69 1440 42 V80 H0 Z"></path></svg></div>
       <div class="about-layout">
         <div><p class="section-kicker">CWIE มหาวิทยาลัยพะเยา</p><h2 class="section-heading">เรียนรู้จากการทำงานจริง</h2></div>
-        <div><p>CWIE คือการจัดการศึกษาที่เชื่อมการเรียนในมหาวิทยาลัยกับประสบการณ์ทำงาน ช่วยให้นิสิตได้เรียนรู้และพัฒนาทักษะร่วมกับสถานประกอบการ</p><a class="text-link" href="#calendar">ดูกำหนดการ <span aria-hidden="true">↗</span></a></div>
+        <div><p>CWIE คือการจัดการศึกษาที่เชื่อมการเรียนในมหาวิทยาลัยกับประสบการณ์ทำงาน ช่วยให้นิสิตได้เรียนรู้และพัฒนาทักษะร่วมกับสถานประกอบการ</p><a class="text-link" href="#calendar">ดูกำหนดการ <span aria-hidden="true"><svg width="0.8em" height="0.8em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12 12 4M7 4h5v5"/></svg></span></a></div>
       </div>
     </section>
 
     <section id="steps" class="container home-section" aria-labelledby="steps-heading">
       <div class="section-head"><h2 id="steps-heading" class="section-heading">สำหรับนิสิต CWIE</h2></div>
       <ol class="journey-grid">
-        <li class="student-assessment"><div class="student-plo-brand" aria-hidden="true"><img class="student-plo-logo" src="./assets/plo-logo.svg" alt="" width="300" height="190" loading="lazy"></div><div class="student-assessment-header"><span class="journey-number">01</span></div><h3>ประเมินสมรรถนะนิสิต CWIE</h3><a href="https://plo.up.ac.th/main/#/student/practice">ทำแบบประเมิน <span aria-hidden="true">&#8599;</span></a></li>
+        <li class="student-assessment"><div class="student-plo-brand" aria-hidden="true"><img class="student-plo-logo" src="./assets/plo-logo.svg" alt="" width="300" height="190" loading="lazy"></div><div class="student-assessment-header"><span class="journey-number">01</span></div><h3>ประเมินสมรรถนะนิสิต CWIE</h3><a href="https://plo.up.ac.th/main/#/student/practice">ทำแบบประเมิน <span aria-hidden="true"><svg width="0.8em" height="0.8em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12 12 4M7 4h5v5"/></svg></span></a></li>
         <li class="student-preparation">
           <svg class="student-login-art" viewBox="0 0 240 180" aria-hidden="true" focusable="false">
             <defs>
@@ -3419,7 +3453,7 @@
               </g>
             </g>
           </svg>
-          <div class="student-preparation-header"><span class="journey-number">02</span></div><h3>เตรียมความพร้อมนิสิต CWIE</h3><a href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">ดูชั่วโมงและกิจกรรมที่เข้าร่วม <span aria-hidden="true">&#8599;</span></a></li>
+          <div class="student-preparation-header"><span class="journey-number">02</span></div><h3>เตรียมความพร้อมนิสิต CWIE</h3><a href="https://coop.up.ac.th/main/#/student/projectenrolconfirm">ดูชั่วโมงและกิจกรรมที่เข้าร่วม <span aria-hidden="true"><svg width="0.8em" height="0.8em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 12 12 4M7 4h5v5"/></svg></span></a></li>
       </ol>
     </section>
 
@@ -3610,6 +3644,7 @@
         </dl>
       </section>
     </div>
+    <div class="container cookie-demo-footer"><button type="button" id="cookie-demo-open">นโยบายและการตั้งค่าคุกกี้</button></div>
   </footer>
 
   <!-- SCRIPT: Role Switcher & Animated Counters -->
@@ -4203,5 +4238,52 @@
       tabBar.hidden = false;
     })();
   </script>
+
+<section id="cookie-demo-banner" aria-labelledby="cookie-demo-heading" hidden>
+  <div><h2 id="cookie-demo-heading">การใช้คุกกี้</h2><p>ตัวอย่างแถบขอความยินยอม คุณสามารถเลือกหรือเปลี่ยนการตั้งค่าได้</p><small>ม็อคอัพ · ยังไม่เชื่อมระบบคุกกี้หรือสถิติจริง</small></div>
+  <div class="cookie-demo-actions">
+    <button type="button" data-cookie-settings>ตั้งค่า</button>
+    <button type="button" data-cookie-choice="necessary">ปฏิเสธคุกกี้เสริม</button>
+    <button type="button" class="cookie-demo-primary" data-cookie-choice="all">ยอมรับทั้งหมด</button>
+  </div>
+</section>
+<dialog id="cookie-demo-dialog" aria-labelledby="cookie-demo-title">
+  <form method="dialog">
+    <header><h2 id="cookie-demo-title">นโยบายและการตั้งค่าคุกกี้</h2><button type="submit" aria-label="ปิดการตั้งค่าคุกกี้">ปิด</button></header>
+    <p>ม็อคอัพสำหรับทดลองหน้าตาและตัวเลือก ยังไม่ใช่นโยบายฉบับใช้งานจริง</p>
+    <div class="cookie-demo-option"><div><strong>การทำงานพื้นฐาน</strong><p>ตัวอย่างหมวดสำหรับการทำงานที่จำเป็นของเว็บไซต์</p></div><span>เปิดเสมอ</span></div>
+    <label class="cookie-demo-option"><div><strong>สถิติการใช้งาน</strong><p>ตัวอย่างตัวเลือกสำหรับเครื่องมือวิเคราะห์การเข้าชม</p></div><input id="cookie-demo-analytics" type="checkbox"></label>
+    <p class="cookie-demo-note">บันทึกเฉพาะตัวเลือกทดลองในเบราว์เซอร์นี้ ไม่มีการเปิดเครื่องมือวิเคราะห์หรือส่งข้อมูลจากม็อคอัพนี้</p>
+    <button class="cookie-demo-primary" type="button" id="cookie-demo-save">บันทึกการตั้งค่า</button>
+  </form>
+</dialog>
+<script>
+(function () {
+  const key = 'cwie-cookie-demo-choice';
+  const banner = document.getElementById('cookie-demo-banner');
+  const dialog = document.getElementById('cookie-demo-dialog');
+  const analytics = document.getElementById('cookie-demo-analytics');
+  let choice = null;
+  try { choice = localStorage.getItem(key); } catch (error) {}
+  banner.hidden = choice === 'all' || choice === 'necessary';
+  function openSettings() {
+    analytics.checked = choice === 'all';
+    dialog.showModal();
+  }
+  function save(value) {
+    choice = value;
+    try { localStorage.setItem(key, value); } catch (error) {}
+    banner.hidden = true;
+    if (dialog.open) dialog.close();
+    document.getElementById('cookie-demo-open').focus({preventScroll:true});
+  }
+  document.getElementById('cookie-demo-open').addEventListener('click', openSettings);
+  document.querySelector('[data-cookie-settings]').addEventListener('click', openSettings);
+  document.querySelectorAll('[data-cookie-choice]').forEach(button => {
+    button.addEventListener('click', () => save(button.dataset.cookieChoice));
+  });
+  document.getElementById('cookie-demo-save').addEventListener('click', () => save(analytics.checked ? 'all' : 'necessary'));
+})();
+</script>
 </body>
 </html>
